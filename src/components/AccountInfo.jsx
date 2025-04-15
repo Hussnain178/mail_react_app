@@ -1,10 +1,23 @@
 import React from 'react'
+import Navbar from './Navbar'
+import { useNavigate } from 'react-router-dom'
 
 const AccountInfo = () => {
+  const navigate = useNavigate(); // Hook for navigation
   return (
+    <div className="bg-black min-h-screen">
+      <Navbar />
     <div className="flex min-h-screen items-center justify-center bg-black px-4">
-      <form className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
-        <h1 className="max-w-full bg-blue-500 h-12  font-bold rounded-md text-white text-[25px] pb-10 mt-2 pl-10">
+    
+      <form  className="relative bg-white p-4 rounded-2xl shadow-xl w-full max-w-2xl mx-auto ">
+      <button
+            type="button"
+            className="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
+            onClick={() => navigate("/home")}
+          >
+            &times;
+          </button>
+        <h1 className="text-center p-2 text-black h-12  font-bold rounded-md text-[30px] mt-2">
           Account Info
         </h1>
 
@@ -68,6 +81,7 @@ const AccountInfo = () => {
     </div>
 
       </form>
+    </div>
     </div>
   )
 }

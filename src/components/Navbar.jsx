@@ -22,11 +22,11 @@ console.log("Navbar username:", userName); // ✅ Debug here too
 
   return (
     <nav className="border-b bg-black">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl sticky-top items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand name */}
         <div className="flex items-center">
-          <Link to="/" className="text-3xl text-white font-bold">
-            Admin Panel
+          <Link to="/home">
+         <h1 className="text-white text-2xl font-bold">Admin Panel</h1>
           </Link>
         </div>
 
