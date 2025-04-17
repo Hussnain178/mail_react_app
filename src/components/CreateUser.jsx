@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const CreateUser = () => {
+  const csrf_token = localStorage.getItem("csrf_token"); // Get CSRF token from local storage
   const navigate = useNavigate(); // Hook for navigation
 
   const [formData, setFormData] = useState({
-    user_name: '',
+    csrf_token: csrf_token,
     agent_name: '',
     calling_name: '',
     user_password: '',
@@ -51,7 +52,7 @@ const CreateUser = () => {
           role: ''
         });
       } else {
-        setMessage({ type: 'error', text: 'Something went wrong!' });
+        setMessage({ type: 'error', text: 'User already exist!' });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -97,6 +98,7 @@ const CreateUser = () => {
                   User Name
                 </label>
                 <input
+                required
                   id="user_name"
                   name="user_name"
                   type="text"
@@ -112,6 +114,7 @@ const CreateUser = () => {
                   Agent Name
                 </label>
                 <input
+                required
                   id="agent_name"
                   name="agent_name"
                   type="text"
@@ -130,6 +133,7 @@ const CreateUser = () => {
                   Calling Name
                 </label>
                 <input
+                required
                   id="calling_name"
                   name="calling_name"
                   type="text"
@@ -145,6 +149,7 @@ const CreateUser = () => {
                   User Password
                 </label>
                 <input
+                required
                   id="user_password"
                   name="user_password"
                   type="password"
@@ -162,6 +167,7 @@ const CreateUser = () => {
               <div className="flex items-center space-x-6">
                 <div className="flex items-center">
                   <input
+                  required
                     id="role-admin"
                     type="radio"
                     name="role"
@@ -176,6 +182,7 @@ const CreateUser = () => {
                 </div>
                 <div className="flex items-center">
                   <input
+                  required
                     id="role-user"
                     type="radio"
                     name="role"

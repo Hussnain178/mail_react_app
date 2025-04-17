@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
@@ -8,6 +8,20 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  // ✅ Auto-login if already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("csrf_token");
+    const role = localStorage.getItem("Message");
+
+    if (token) {
+      if (role === "admin") {
+        navigate("/home");
+      } else if (role === "user") {
+        navigate("/userpanel");
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,19 +42,23 @@ export default function LoginForm() {
       const data = await response.json();
       console.log("Login response:", data);
 
-
       if (response.ok) {
-        console.log("Login successful:", data);
+        localStorage.setItem("csrf_token", data.csrf_token);
+        localStorage.setItem("user_name", user_name);
+        localStorage.setItem("Message", data.Message);
 
-        // ✅ Save the user_name in localStorage
-        localStorage.setItem("user_name", data.user_name);
-
-        // ✅ Redirect after login
-        navigate("/home");
+        if (data.Message === "admin") {
+          navigate("/home");
+        } else if (data.Message === "user") {
+          navigate("/userpanel");
+        } else {
+          setError("Unknown Message received from server");
+        }
       } else {
         setError(data.message || "Login failed");
       }
     } catch (err) {
+      console.error(err);
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);

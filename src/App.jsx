@@ -5,22 +5,39 @@ import CreateUser from './components/CreateUser';
 import DeleteUser from './components/DeleteUser';
 import ChangePasssword from './components/ChangePassword';
 import AccountInfo from './components/AccountInfo';
+import UserAccountinfo from './components/UserAccountinfo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserPanel from './components/UserPanel';
 import UserChangepasssword from './components/UserChangepassword';
+import EditUserInfo from './components/EditUserInfo';
+import UserEditUserinfo from './components/UserEditinfo';
+import LogoutButton from './components/logoutButton';
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
    
       <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/home" element={<UserPanel/>} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/home" element={
+           <PrivateRoute>
+          <Home/>
+          </PrivateRoute>
+          } />
+        <Route path="/userpanel" element={
+          <PrivateRoute>
+          <UserPanel/>
+          </PrivateRoute>
+          } />
         <Route path="/create-user" element={<CreateUser />} />
         <Route path="/delete-user" element={<DeleteUser />} />
         <Route path="/change-password" element={<ChangePasssword />} />
         <Route path="/userchange-password" element={<UserChangepasssword />} />
         <Route path='/Account-Info' element={<AccountInfo />} />
+        <Route path='/userAccount-Info' element={<UserAccountinfo />} />
+        <Route path='/edit-user' element={<EditUserInfo />} />
+        <Route path='/useredit-user' element={<UserEditUserinfo />} />
+        <Route path='/logout' element={<LogoutButton />} />
       </Routes>
   
   );

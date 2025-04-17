@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserNavbar from './UserNavbar'; // Importing the UserNavbar component
 
 const ChangePassword = () => {
+  const csrf_token = localStorage.getItem("csrf_token"); // Retrieve the CSRF token from local storage
   const navigate = useNavigate(); // Hook for navigation
   const [user_name, setUsername] = useState('');
   const [user_password, setOldPassword] = useState('');
@@ -24,7 +25,8 @@ const ChangePassword = () => {
       setMessage('');
 
       const bodyData = {
-        user_name: user_name.trim(),
+       
+        csrf_token: csrf_token,
         user_password: user_password.trim(),
         new_password: new_password.trim(),
       };
@@ -35,8 +37,10 @@ const ChangePassword = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // "X-CSRFToken": csrf_token,
         },
         body: JSON.stringify(bodyData),
+
       });
 
       const data = await response.json();
@@ -72,7 +76,7 @@ const ChangePassword = () => {
           <button
             type="button"
             className="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/userpanel")}
           >
             &times;
           </button>

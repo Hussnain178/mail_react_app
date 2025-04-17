@@ -12,11 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../components/ui/dropdown-menu';
+import LogoutButton from './logoutButton';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const userName = localStorage.getItem("user_name");
-console.log("Navbar username:", userName); // ✅ Debug here too
+// console.log("Navbar username:", userName); // ✅ Debug here too
 
 
 
@@ -75,9 +76,9 @@ console.log("Navbar username:", userName); // ✅ Debug here too
                  </Link>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <Link to="/">
-              <DropdownMenuItem>Log out</DropdownMenuItem>
-              </Link>
+              {/* <Link to="/logout"> */}
+              <DropdownMenuItem><LogoutButton/></DropdownMenuItem>
+              {/* </Link> */}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

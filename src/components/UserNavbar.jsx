@@ -12,8 +12,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../components/ui/dropdown-menu';
+import LogoutButton from './logoutButton';
 
 export default function Navbar() {
+  const UserName = localStorage.getItem("user_name"); // Retrieve the CSRF token from local storage
   const [isOpen, setIsOpen] = useState(false);
   const userName = localStorage.getItem("user_name");
 console.log("Navbar username:", userName); // ✅ Debug here too
@@ -26,7 +28,7 @@ console.log("Navbar username:", userName); // ✅ Debug here too
         {/* Brand name */}
         <div className="flex items-center">
           <Link to="/home">
-         <h1 className="text-white text-2xl font-bold">Admin Panel</h1>
+         <h1 className="text-white text-2xl font-bold">User Panel</h1>
           </Link>
         </div>
 
@@ -62,12 +64,12 @@ console.log("Navbar username:", userName); // ✅ Debug here too
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{userName}</p>
+                  <p className="text-sm font-medium leading-none">{UserName}</p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-              <Link to="/Account-Info">
+              <Link to="/userAccount-Info">
                 <DropdownMenuItem>Account Info</DropdownMenuItem>
                 </Link>
                  <Link to="/userchange-password">
@@ -75,9 +77,9 @@ console.log("Navbar username:", userName); // ✅ Debug here too
                  </Link>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <Link to="/">
-              <DropdownMenuItem>Log out</DropdownMenuItem>
-              </Link>
+              
+              <DropdownMenuItem><LogoutButton/></DropdownMenuItem>
+             
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

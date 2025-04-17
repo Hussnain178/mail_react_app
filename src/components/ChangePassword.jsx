@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 
 const ChangePassword = () => {
   const navigate = useNavigate(); // Hook for navigation
+  const csrf_token = localStorage.getItem("csrf_token"); 
   const [user_name, setUsername] = useState('');
   const [user_password, setOldPassword] = useState('');
   const [new_password, setNewPassword] = useState('');
@@ -24,7 +25,7 @@ const ChangePassword = () => {
       setMessage('');
 
       const bodyData = {
-        user_name: user_name.trim(),
+        csrf_token: csrf_token,
         user_password: user_password.trim(),
         new_password: new_password.trim(),
       };
