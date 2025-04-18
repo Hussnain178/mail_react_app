@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar'; // Assuming you have a UserNavbar component
+import Navbar from './Navbar';
 import { useNavigate } from "react-router-dom";
 
 const AccountInfo = () => {
@@ -9,11 +9,11 @@ const AccountInfo = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUserName = localStorage.getItem('user_name'); // Get logged-in user
+    const storedUserName = localStorage.getItem('user_name');
 
     if (!storedUserName) {
       console.warn("No user found. Redirecting to login...");
-      navigate('/login'); // Redirect if not logged in
+      navigate('/login');
       return;
     }
 
@@ -21,11 +21,8 @@ const AccountInfo = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${token}`, // Add this if needed
       },
-      body: JSON.stringify({  csrf_token: csrf_token
-
-      })
+      body: JSON.stringify({ csrf_token })
     })
       .then((res) => {
         if (!res.ok) {
@@ -45,15 +42,15 @@ const AccountInfo = () => {
 
   if (loading) {
     return (
-      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md mt-25 text-center">
-        <p className="text-gray-600">Loading...</p>
+      <div className="p-6 max-w-md mx-auto bg-black rounded-xl shadow-md mt-25 text-center">
+        <p className="text-white">Loading...</p>
       </div>
     );
   }
 
   if (!userData || !userData.user_info) {
     return (
-      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md mt-25 text-center">
+      <div className="p-6 max-w-md mx-auto bg-black rounded-xl shadow-md mt-25 text-center">
         <p className="text-red-500">Failed to load user data.</p>
       </div>
     );
@@ -64,37 +61,68 @@ const AccountInfo = () => {
   return (
     <div className="bg-black min-h-screen">
       <Navbar />
-      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md mt-25 text-center">
-        <div className="relative">
-          <h2 className="text-center p-2   text-black h-12 pt-2 font-bold rounded-md text-[30px] mb-4">
+      <div className="flex  items-center justify-center bg-black px-4">
+        <div className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
+          <button
+            type="button"
+            className="absolute right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
+            onClick={() => navigate("/home")}
+          >
+            &times;
+          </button>
+
+          <h1 className="text-center text-black text-[25px] font-bold pb-10">
             User Info
+          </h1>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1" htmlFor="username">
+              User Name
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={user_name}
+              disabled
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1" htmlFor="agentname">
+              Agent Name
+            </label>
+            <input
+              id="agentname"
+              type="text"
+              value={agent_name}
+              disabled
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1" htmlFor="callingname">
+              Calling Name
+            </label>
+            <input
+              id="callingname"
+              type="text"
+              value={calling_name}
+              disabled
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
+            />
+          </div>
+
+          <div className="flex justify-center mt-6">
             <button
               type="button"
-              className="absolute right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
-              onClick={() => navigate("/home")}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300"
+              onClick={() => navigate("/edit-user")}
             >
-              &times;
+              Edit
             </button>
-          </h2>
-        </div>
-        <ul className="space-y-3 text-left">
-          <li className="text-black-800 pt-1 rounded-lg font-medium mb-3">
-            Username: <p className="text-gray-800 p-1 rounded-lg border border-gray-500 font-medium"> {user_name}</p> 
-          </li>
-          <li className="text-black-800 pt-1 rounded-lg font-medium mb-3">
-            Agent Name: <p className="text-gray-800 p-1 rounded-lg border border-gray-500 font-medium"> {agent_name}</p>
-          </li>
-          <li className="text-balck-800 pt-1 font-medium">
-            Calling Name:  <p className="text-gray-800 p-1 rounded-lg border border-gray-500 font-medium"> {calling_name}</p>
-          </li>
-        </ul>
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={() => navigate("/edit-user")}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-          >
-            Edit
-          </button>
+          </div>
         </div>
       </div>
     </div>
