@@ -3,29 +3,27 @@ import { useNavigate } from 'react-router-dom';
 
 const LogoutButton = () => {
   const navigate = useNavigate();
+  const csrf_token = localStorage.getItem('csrf_token');
 
   const handleLogout = async () => {
-    const csrf_token = localStorage.getItem('csrf_token');
+    // console.log("CSRF Token: ", csrf_token); // ✅ Debug
 
     try {
       const response = await fetch('http://104.236.100.170:8000/logout', {
-        method: 'POST',
+        method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ csrf_token })
+          'csrf-token': csrf_token, // ✅ Try using this instead of 'csrf-token'
+        }
       });
 
       if (!response.ok) {
         throw new Error(`Logout failed: ${response.status}`);
       }
 
-      // Clear local storage (optional)
+      // ✅ Clear tokens and redirect
       localStorage.removeItem('csrf_token');
-      localStorage.removeItem('user_name'); // Remove user name if stored
-
-     
-      navigate('/login'); // ✅ redirect to login page
+      localStorage.removeItem('user_name');
+      navigate('/login');
 
     } catch (error) {
       console.error('Logout error:', error);

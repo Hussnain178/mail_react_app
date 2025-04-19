@@ -7,7 +7,7 @@ const CreateUser = () => {
   const navigate = useNavigate(); // Hook for navigation
 
   const [formData, setFormData] = useState({
-    csrf_token: csrf_token,
+  
     agent_name: '',
     calling_name: '',
     user_password: '',
@@ -26,6 +26,7 @@ const CreateUser = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("CSRF Token: ", csrf_token);
     e.preventDefault();
     setLoading(true);
     setMessage({ type: '', text: '' });
@@ -35,6 +36,7 @@ const CreateUser = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'csrf-token': csrf_token, // Include CSRF token in headers
         },
         body: JSON.stringify(formData),
       });
