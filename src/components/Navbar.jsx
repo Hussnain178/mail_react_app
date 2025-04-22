@@ -15,7 +15,7 @@ import {
 import LogoutButton from './logoutButton';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const userName = localStorage.getItem("user_name");
 // console.log("Navbar username:", userName); // ✅ Debug here too
 
@@ -30,6 +30,27 @@ export default function Navbar() {
          <h1 className="text-white text-2xl font-bold">Admin Panel</h1>
           </Link>
         </div>
+        <div className="flex items-center">
+          <ul className="flex space-x-12">
+            <li>
+              <Link to="/show-company" className="text-white hover:text-gray-300">
+                Show Company
+              </Link>
+            </li>
+            <li>
+              <Link to="/add-package" className="text-white hover:text-gray-300">
+                Add/Update Packages
+              </Link>
+            </li>
+            <li>
+              <Link to="/delete-package" className="text-white hover:text-gray-300">
+                Delete Package
+              </Link>
+            </li>
+            </ul>
+          </div>
+
+        
 
         {/* Buttons + Dropdown */}
         <div className="flex items-center space-x-4">

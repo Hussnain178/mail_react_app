@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Navbar from "./Navbar";
 
 export default function CompanyDataform() {
   const [companies, setCompanies] = useState([]);
@@ -312,7 +313,10 @@ export default function CompanyDataform() {
     };
 
     return (
+      <div className="bg-white min-h-screen">
+        <Navbar />
       <div className="max-w-3xl mx-auto p-4 space-y-8">
+      
         {/* -------------------------- Add Company -------------------------- */}
         <div className="bg-white shadow rounded p-4">
           <h2 className="text-lg font-semibold mb-4">Add Company</h2>
@@ -663,6 +667,7 @@ export default function CompanyDataform() {
             Update
           </button>
         </div>
+      </div>
       </div>
     );
   };

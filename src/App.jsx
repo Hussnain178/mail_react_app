@@ -13,6 +13,9 @@ import EditUserInfo from './components/EditUserInfo';
 import UserEditUserinfo from './components/UserEditinfo';
 import LogoutButton from './components/logoutButton';
 import PrivateRoute from "./components/PrivateRoute";
+import CompanyDataform from './components/CompanyDataform';
+import CompanyTable from './components/CompanyTable';
+import DeleteCompanyFormData from './components/DeleteCompanyFormData';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
           </PrivateRoute>
           } />
         <Route path="/create-user" element={<CreateUser />} />
+        <Route path="/add-package" element={<CompanyDataform />} />
+        <Route path="/delete-package" element={<DeleteCompanyFormData />} />
+        <Route path="/show-company" element={<CompanyTable />} />
         <Route path="/delete-user" element={<DeleteUser />} />
         <Route path="/change-password" element={<ChangePasssword />} />
         <Route path="/userchange-password" element={<UserChangepasssword />} />
