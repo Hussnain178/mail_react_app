@@ -33,7 +33,7 @@ const ChangePassword = () => {
 
       console.log("Sending request to backend:", bodyData);
 
-      const response = await fetch('http://104.236.100.170:8000/change_password', {
+      const response = await fetch('http://104.236.100.170/api/change_password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

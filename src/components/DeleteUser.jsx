@@ -13,7 +13,7 @@ const DeleteUser = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.post(
-        'http://104.236.100.170:8000/show_users',
+        'http://104.236.100.170/api/show_users',
         { csrf_token }
       );
       const userList = response.data.users || [];
@@ -45,7 +45,7 @@ const DeleteUser = () => {
 
     try {
       await axios.post(
-        'http://104.236.100.170:8000/delete_user',
+        'http://104.236.100.170/api/delete_user',
         {
           target_user_name: selectedUserId,
           csrf_token: csrf_token,

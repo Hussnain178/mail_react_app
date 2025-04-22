@@ -9,7 +9,7 @@ const LogoutButton = () => {
     // console.log("CSRF Token: ", csrf_token); // ✅ Debug
 
     try {
-      const response = await fetch('http://104.236.100.170:8000/logout', {
+      const response = await fetch('http://104.236.100.170/api/logout', {
         method: 'GET',
         headers: {
           'csrf-token': csrf_token, // ✅ Try using this instead of 'csrf-token'

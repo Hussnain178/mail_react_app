@@ -17,7 +17,7 @@ const UserAccountinfo = () => {
       return;
     }
 
-    fetch('http://104.236.100.170:8000/show_user_info', {
+    fetch('http://104.236.100.170/api/show_user_info', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -31,7 +31,7 @@ export default function LoginForm() {
     const loginData = { user_name, user_password };
 
     try {
-      const response = await fetch("http://104.236.100.170:8000/login", {
+      const response = await fetch("http://104.236.100.170/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

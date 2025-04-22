@@ -19,7 +19,7 @@ export default function ServicesPlan() {
 
   const fetchCompanies = async () => {
     try {
-      const res = await axios.post("http://104.236.100.170:8000/get_companies" , { csrf_token: csrf_token });
+      const res = await axios.post("http://104.236.100.170/api00/get_companies" , { csrf_token: csrf_token });
       setCompanies(res.data || []);
     } catch (err) {
       console.error("Error fetching companies", err);

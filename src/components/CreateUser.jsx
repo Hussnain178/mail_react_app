@@ -32,7 +32,7 @@ const CreateUser = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch('http://104.236.100.170:8000/create_user', {
+      const response = await fetch('http://104.236.100.170/api/create_user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

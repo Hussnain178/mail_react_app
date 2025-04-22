@@ -32,7 +32,7 @@ export default function CompanyEmailForm() {
 
     try {
       // Backend API par POST request bhej rahe hain formData ke sath
-      const response = await fetch("http://104.236.100.170:8000/add_mail", {
+      const response = await fetch("http://104.236.100.170/api/add_mail", {
         method: "POST", // HTTP method
         headers: {
           "Content-Type": "application/json", // JSON data bhej rahe hain

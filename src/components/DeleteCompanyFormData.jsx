@@ -5,6 +5,7 @@ export default function CompanyDataform() {
   const [companies, setCompanies] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
+  const [packages, setPackages] = useState([]);
   const [FreeAddson, setFreeAddson] = useState([]);
   const [Addson, setAddson] = useState([]);
 
@@ -62,7 +63,7 @@ export default function CompanyDataform() {
       const response = await axios.post(
         "http://104.236.100.170/api/get_categories",
         {
-          company_name: selectedCompany1,
+          company_name: selectedCompany,
         },
         {
           headers: {
@@ -79,12 +80,56 @@ export default function CompanyDataform() {
       console.error("Failed to fetch users:", error);
     }
   };
+  const fetchcategories1 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_categories",
+        {
+          company_name: selectedCompany1,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      // console.log("Selected Company:", response);
+      const categoriesList = response.data.List;
+
+      setCategories(categoriesList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
   const fetchcategories2 = async () => {
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_categories",
         {
           company_name: selectedCompany2,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      // console.log("Selected Company:", response);
+      const categoriesList = response.data.List;
+
+      setCategories(categoriesList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  const fetchcategories4 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_categories",
+        {
+          company_name: selectedCompany4,
         },
         {
           headers: {
@@ -128,6 +173,50 @@ export default function CompanyDataform() {
       const response = await axios.post(
         "http://104.236.100.170/api/get_subscriptions",
         {
+          company_name: selectedCompany1,
+          category: selectedCategory,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      const subscriptionList = response.data.List;
+
+      setSubscriptions(subscriptionList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  const fetchsubscription4 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_subscriptions",
+        {
+          company_name: selectedCompany4,
+          category: selectedCategory4,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      const subscriptionList = response.data.List;
+
+      setSubscriptions(subscriptionList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  const fetchsubscription3 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_subscriptions",
+        {
           company_name: selectedCompany3,
           category: selectedCategory3,
         },
@@ -150,8 +239,9 @@ export default function CompanyDataform() {
       const response = await axios.post(
         "http://104.236.100.170/api/get_adds_on",
         {
-          company_name: selectedCompany3,
-          category: selectedCategory3,
+          company_name: selectedCompany2,
+          category: selectedCategory2,
+          
         },
         {
           headers: {
@@ -159,7 +249,9 @@ export default function CompanyDataform() {
             "csrf-token": csrf_token,
           },
         }
+        
       );
+    //   console.log("addson:", response);
       const AddsonList = response.data.List;
 
       setAddson(AddsonList);
@@ -167,10 +259,32 @@ export default function CompanyDataform() {
       console.error("Failed to fetch users:", error);
     }
   };
+//   const fetchgetpackage = async () => {
+//     try {
+//       const response = await axios.post(
+//         "http://104.236.100.170/api/get_prices",
+//         {
+//           company_name: selectedCompany4,
+//           category: selectedCategory4,
+//         },
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//             "csrf-token": csrf_token,
+//           },
+//         }
+//       );
+//       const subscriptionList = response.data.List;
+
+//       setSubscriptions(subscriptionList);
+//     } catch (error) {
+//       console.error("Failed to fetch users:", error);
+//     }
+//   };
 
   useEffect(() => {
     if (selectedCompany1) {
-      fetchcategories();
+      fetchcategories1();
     }
   }, [selectedCompany1]);
 
@@ -187,13 +301,32 @@ export default function CompanyDataform() {
   }, [selectedCompany3]);
 
   useEffect(() => {
-    if (selectedCompany3 && selectedCategory3) {
+    if (selectedCompany4) {
+      fetchcategories4();
+    }
+  }, [selectedCompany4]);
+
+
+  useEffect(() => {
+    if (selectedCompany1 && selectedCategory) {
       fetchsubscription();
     }
-  }, [selectedCompany3, selectedCategory3]);
+  }, [selectedCompany1, selectedCategory]);
+
+  useEffect(() => {
+    if (selectedCompany2 && selectedCategory2) {
+      fetchaddson();
+    }
+  }, [selectedCompany2, selectedCategory2]);
+
+  useEffect(() => {
+    if (selectedCompany4 && selectedCategory4) {
+      fetchsubscription4();
+    }
+  }, [selectedCompany4, selectedCategory4]);
   useEffect(() => {
     if (selectedCompany3 && selectedCategory3) {
-      fetchaddson();
+      fetchsubscription3();
     }
   }, [selectedCompany3, selectedCategory3]);
 
@@ -205,65 +338,66 @@ export default function CompanyDataform() {
           "csrf-token": csrf_token,
         },
       });
-      alert(response.data.message || "Successfully added");
+      alert(response.data.message || "Successfully deleted!");
     } catch (error) {
       console.error("API Error:", error);
       alert("Error: Failed to process the request.");
     }
   };
 
-  const handleAddCompany = async () => {
-    if (newCompany && !companies.includes(newCompany)) {
-      await postData("http://104.236.100.170/api/add_company", {
-        company_name: newCompany,
+  const handledeleteCompany = async () => {
+    
+      await postData("http://104.236.100.170/api/delete_company", {
+        company_name: selectedCompany,
       });
       setCompanies([...companies, newCompany]);
-      setNewCompany("");
-    }
+      setSelectedCompany("");
+    
   };
 
-  const handleAddCategory = async () => {
-    if (selectedCompany && newCategory) {
-      await postData("http://104.236.100.170/api/add_category", {
+  const handledeleteCategory = async () => {
+    if (selectedCompany && selectedCategory) {
+      await postData("http://104.236.100.170/api/delete_category", {
         company_name: selectedCompany,
-        category: newCategory,
+        category: selectedCategory,
       });
-
-      setNewCategory("");
+        setCategories([...categories, newCategory]);
+        setSelectedCategory("");
       setCompanies([]);
     }
   };
 
-  const handleAddSubscription = async () => {
-    if (selectedCompany1 && selectedCategory && newSubscription) {
-      await postData("http://104.236.100.170/api/add_subscription", {
+  const handledeleteSubscription = async () => {
+    if (selectedCompany1 && selectedCategory && selectedSubscription) {
+      await postData("http://104.236.100.170/api/delete_subscription", {
         company_name: selectedCompany1,
         category: selectedCategory,
-        subscription: newSubscription,
+        subscription: selectedSubscription,
       });
-      setNewSubscription("");
-      setCategories([]);
+        setSubscriptions([...subscriptions, newSubscription]);
+        setSelectedSubscription("");
+      setSelectedCategory("");
       setCompanies([]);
     }
   };
-  const handleAddAddson = async () => {
-    if (selectedCompany2 && selectedCategory2 && newAddson && AddsonPrice) {
+  const handledeleteAddson = async () => {
+    if (selectedCompany2 && selectedCategory2 && selectedAddson3) {
       {
-        await postData("http://104.236.100.170/api/add_adds_on", {
+        await postData("http://104.236.100.170/api/delete_adds_on", {
           company_name: selectedCompany2,
           category: selectedCategory2,
-          adds_on: newAddson,
-          price: AddsonPrice,
+          adds_on: selectedAddson3,
+          
         });
-        setNewAddson("");
-        setSelectedCategory3("");
+       setSelectedAddson3("");
+        setSelectedCategory2("");
       setSelectedCompany2([]);
-        setAddsonPrice("");
+       
         
       }
     }};
   const handleAddFreeAddson = async () => {
-    if (selectedCompany3 && selectedCategory3 && selectedAddson3 && selectedSubscription) {
+    if (selectedCompany2 && selectedCategory3 && selectedAddson3 && selectedSubscription) {
       {
         await postData("http://104.236.100.170/api/add_free_adds_on", {
           company_name: selectedCompany3,
@@ -279,7 +413,7 @@ export default function CompanyDataform() {
       }
     }};
 
-    const handleUpdatePackage = async () => {
+    const handledeletePackage = async () => {
       if (
         !selectedCompany4 ||
         !selectedCategory4 ||
@@ -290,20 +424,16 @@ export default function CompanyDataform() {
         return;
       }
 
-      if (!/^\d+(\.\d{1,2})?$/.test(packagePrice)) {
-        alert("Please enter a valid numeric price (numbers or decimals only).");
-        return;
-      }
-
+     
       const payload = {
         company_name: selectedCompany4,
         category: selectedCategory4,
         subscription: selectedSubscription4,
         type: packageType,
-        price: String(packagePrice),
+        
       };
 
-      await postData("http://104.236.100.170/api/add_price", payload);
+      await postData("http://104.236.100.170/api/delete_type", payload);
       setPackagePrice("");
       setPackageType("");
       setSelectedCompany4("");
@@ -313,29 +443,37 @@ export default function CompanyDataform() {
 
     return (
       <div className="max-w-3xl mx-auto p-4 space-y-8">
-        {/* -------------------------- Add Company -------------------------- */}
+        {/* -------------------------- Delete Company -------------------------- */}
         <div className="bg-white shadow rounded p-4">
-          <h2 className="text-lg font-semibold mb-4">Add Company</h2>
+          <h2 className="text-lg font-semibold mb-4">Delete Company</h2>
           <div className="flex flex-col sm:flex-row gap-4">
-            <input
-              type="text"
-              placeholder="Enter company name"
-              value={newCompany}
-              onChange={(e) => setNewCompany(e.target.value)}
+          <select
+              value={selectedCompany}
+              onChange={(e) => setSelectedCompany(e.target.value)}
+              onClick={() => fetchcompanies()}
               className="border p-2 rounded w-full"
-            />
+            >
+              <option value="">Select Company</option>
+              {companies.map((company, idx) => {
+                return (
+                  <option key={idx} value={company}>
+                    {company}
+                  </option>
+                );
+              })}
+            </select>
             <button
-              onClick={handleAddCompany}
+              onClick={handledeleteCompany}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
-              Save
+             Delete Company
             </button>
           </div>
         </div>
 
-        {/* -------------------------- Add Category -------------------------- */}
+        {/* -------------------------- Delete Category -------------------------- */}
         <div className="bg-white shadow rounded p-4">
-          <h2 className="text-lg font-semibold mb-4">Add Category</h2>
+          <h2 className="text-lg font-semibold mb-4">Delete Category</h2>
           <div className="flex flex-col sm:flex-row gap-4">
             <select
               value={selectedCompany}
@@ -353,26 +491,34 @@ export default function CompanyDataform() {
               })}
             </select>
 
-            <input
-              type="text"
-              placeholder="Enter category name"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-              className="border p-2 rounded w-full"
-            />
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+                onClick={() => fetchcategories()}
+              className="border p-2 rounded w-full sm:w-1/3"
+            >
+              <option value="">Select Category</option>
+              {categories.map((cat, idx) => {
+                return (
+                  <option key={idx} value={cat}>
+                    {cat}
+                  </option>
+                );
+              })}
+            </select>
 
             <button
-              onClick={handleAddCategory}
+              onClick={handledeleteCategory}
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
             >
-              Save
+              Delete Category
             </button>
           </div>
         </div>
 
-        {/* -------------------------- Add Subscription -------------------------- */}
+        {/* -------------------------- delete Subscription -------------------------- */}
         <div className="bg-white shadow rounded p-4">
-          <h2 className="text-lg font-semibold mb-4">Add Subscription</h2>
+          <h2 className="text-lg font-semibold mb-4">Delete Subscription</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <select
               value={selectedCompany1}
@@ -405,26 +551,34 @@ export default function CompanyDataform() {
               })}
             </select>
 
-            <input
-              type="text"
-              placeholder="Enter subscription name"
-              value={newSubscription}
-              onChange={(e) => setNewSubscription(e.target.value)}
-              className="border p-2 rounded w-full sm:w-1/3"
-            />
+            <select
+              value={selectedSubscription}
+              onChange={(e) => setSelectedSubscription(e.target.value)}
+              onClick={() => fetchsubscription()}
+              className="border p-2 rounded w-full sm:w-1/5"
+            >
+              <option value="">Select Subscription</option>
+              {subscriptions.map((sub, idx) => {
+                return (
+                  <option key={idx} value={sub}>
+                    {sub}
+                  </option>
+                );
+              })}
+            </select>
 
             <button
-              onClick={handleAddSubscription}
+              onClick={handledeleteSubscription}
               className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 w-full sm:w-auto"
             >
-              Save
+              Delete Subscription
             </button>
           </div>
         </div>
 
-        {/* -------------------------- Add addson -------------------------- */}
+        {/* -------------------------- delete addson -------------------------- */}
         <div className="bg-white shadow rounded p-4">
-          <h2 className="text-lg font-semibold mb-4">Add Adds On</h2>
+          <h2 className="text-lg font-semibold mb-4">Delete Adds On</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <select
               value={selectedCompany2}
@@ -457,35 +611,35 @@ export default function CompanyDataform() {
                 );
               })}
             </select>
-
-            <input
-              type="text"
-              placeholder="Enter Adds On name"
-              value={newAddson}
-              onChange={(e) => setNewAddson(e.target.value)}
+            <select
+              value={selectedAddson3}
+              onChange={(e) => setSelectedAddson3(e.target.value)}
               className="border p-2 rounded w-full sm:w-1/3"
-            />
-            <input
-              type="text"
-              placeholder="Enter Adds On Price"
-              value={AddsonPrice}
-              onChange={(e) => setAddsonPrice(e.target.value)}
-              className="border p-2 rounded w-full sm:w-1/3"
-            />
+            >
+              <option value="">Select Addson</option>
+              {Addson.map((adds_on, idx) => {
+                return (
+                  <option key={idx} value={adds_on}>
+                    {adds_on}
+                  </option>
+                );
+              })}
+            </select>
 
+           
             <button
-              onClick={handleAddAddson}
+              onClick={handledeleteAddson}
               className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 w-full sm:w-auto"
             >
-              Save
+              Delete Adds On
             </button>
           </div>
         </div>
 
 
-              {/* -------------------------- Add Free Adds On -------------------------- */}
+              {/* -------------------------- delete Free Adds On -------------------------- */}
               <div className="bg-white shadow rounded p-4">
-          <h2 className="text-lg font-semibold mb-4">Add Free Adds On</h2>
+          <h2 className="text-lg font-semibold mb-4">Delete Free Adds On</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <select
               value={selectedCompany3}
@@ -528,7 +682,7 @@ export default function CompanyDataform() {
             <select
               value={selectedSubscription}
               onChange={(e) => setSelectedSubscription(e.target.value)}
-              onClick={() => fetchsubscription()}
+            //   onClick={() => fetchsubscription3()}
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>
@@ -547,10 +701,10 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Adds On</option>
-              {Addson.map((adds_on, idx) => {
+              {Addson.map((add, idx) => {
                 return (
-                  <option key={idx} value={adds_on}>
-                    {adds_on}
+                  <option key={idx} value={add}>
+                    {add}
                   </option>
                 );
               })}
@@ -565,13 +719,13 @@ export default function CompanyDataform() {
             onClick={handleAddFreeAddson}
             className="mt-4 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 w-full sm:w-auto"
           >
-            Add Free Adds On
+            Delete Free Adds On
           </button>
         </div>
 
-        {/* -------------------------- Update Package -------------------------- */}
+        {/* -------------------------- delete Package -------------------------- */}
         <div className="bg-white shadow rounded p-4">
-          <h2 className="text-lg font-semibold mb-4">Update Package</h2>
+          <h2 className="text-lg font-semibold mb-4">Delete Package</h2>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             <select
               value={selectedCompany4}
@@ -614,7 +768,7 @@ export default function CompanyDataform() {
             <select
               value={selectedSubscription4}
               onChange={(e) => setSelectedSubscription4(e.target.value)}
-              onClick={() => fetchsubscription()}
+            //   onClick={() => fetchsubscription()}
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>
@@ -638,29 +792,14 @@ export default function CompanyDataform() {
               <option value="Triple">Triple</option>
             </select>
 
-            <input
-              type="text"
-              placeholder="Enter price"
-              value={packagePrice}
-              onChange={(e) => {
-                const val = e.target.value;
-                if (val === "" || /^\d*\.?\d{0,2}$/.test(val)) {
-                  setPackagePrice(val);
-                }
-              }}
-              className={`border p-2 rounded w-full sm:w-1/5 ${
-                packagePrice && !/^\d+(\.\d{1,2})?$/.test(packagePrice)
-                  ? "border-red-500"
-                  : ""
-              }`}
-            />
+           
           </div>
 
           <button
-            onClick={handleUpdatePackage}
+            onClick={handledeletePackage}
             className="mt-4 bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full sm:w-auto"
           >
-            Update
+            Delete
           </button>
         </div>
       </div>

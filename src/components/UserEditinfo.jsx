@@ -30,7 +30,7 @@ const EditUserInfo = () => {
     console.log("Submitting this data:", payload); // optional for debugging
 
     try {
-      const response = await fetch('http://104.236.100.170:8000/update_information', {
+      const response = await fetch('http://104.236.100.170/api/update_information', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
