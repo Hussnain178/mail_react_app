@@ -124,6 +124,28 @@ export default function CompanyDataform() {
       console.error("Failed to fetch users:", error);
     }
   };
+  const fetchcategories4 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_categories",
+        {
+          company_name: selectedCompany4,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      // console.log("Selected Company:", response);
+      const categoriesList = response.data.List;
+
+      setCategories(categoriesList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
   const fetchsubscription = async () => {
     try {
       const response = await axios.post(
@@ -131,6 +153,28 @@ export default function CompanyDataform() {
         {
           company_name: selectedCompany3,
           category: selectedCategory3,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      const subscriptionList = response.data.List;
+
+      setSubscriptions(subscriptionList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  const fetchsubscription2 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_subscriptions",
+        {
+          company_name: selectedCompany4,
+          category: selectedCategory4,
         },
         {
           headers: {
@@ -169,23 +213,28 @@ export default function CompanyDataform() {
     }
   };
 
-  useEffect(() => {
-    if (selectedCompany1) {
-      fetchcategories();
-    }
-  }, [selectedCompany1]);
+  // useEffect(() => {
+  //   if (selectedCompany1) {
+  //     fetchcategories();
+  //   }
+  // }, [selectedCompany1]);
 
-  useEffect(() => {
-    if (selectedCompany2) {
-      fetchcategories2();
-    }
-  }, [selectedCompany2]);
+  // useEffect(() => {
+  //   if (selectedCompany2) {
+  //     fetchcategories2();
+  //   }
+  // }, [selectedCompany2]);
 
   useEffect(() => {
     if (selectedCompany3) {
       fetchcategories3();
     }
   }, [selectedCompany3]);
+  // useEffect(() => {
+  //   if (selectedCompany4) {
+  //     fetchcategories4();
+  //   }
+  // }, [selectedCompany4]);
 
   useEffect(() => {
     if (selectedCompany3 && selectedCategory3) {
@@ -197,6 +246,12 @@ export default function CompanyDataform() {
       fetchaddson();
     }
   }, [selectedCompany3, selectedCategory3]);
+
+  // useEffect(() => {
+  //   if (selectedCompany4 && selectedCategory4) {
+  //     fetchsubscription2();
+  //   }
+  // }, [selectedCompany4, selectedCategory4]);
 
   const postData = async (url, data) => {
     try {
@@ -219,7 +274,9 @@ export default function CompanyDataform() {
         company_name: newCompany,
       });
       setCompanies([...companies, newCompany]);
+      setCompanies([]);
       setNewCompany("");
+      // setNewCompany("");
     }
   };
 
@@ -231,7 +288,7 @@ export default function CompanyDataform() {
       });
 
       setNewCategory("");
-      setCompanies([]);
+      setSelectedCompany("");
     }
   };
 
@@ -244,7 +301,8 @@ export default function CompanyDataform() {
       });
       setNewSubscription("");
       setCategories([]);
-      setCompanies([]);
+      setSelectedCompany1("");
+      setSelectedCategory("");
     }
   };
   const handleAddAddson = async () => {
@@ -257,9 +315,11 @@ export default function CompanyDataform() {
           price: AddsonPrice,
         });
         setNewAddson("");
-        setSelectedCategory3("");
-      setSelectedCompany2([]);
+        setSelectedCategory2("");
+      setSelectedCompany2("");
         setAddsonPrice("");
+        setCategories([]);
+
         
       }
     }};
@@ -274,9 +334,11 @@ export default function CompanyDataform() {
         });
         setFreeAddson("");
         setSelectedCategory3("");
-        setSelectedCompany3([]);
+        setSelectedCompany3("");
         setSelectedAddson3("");
         setSelectedSubscription("");
+        setCategories([]);
+        setAddson([]);
       }
     }};
 
@@ -310,6 +372,9 @@ export default function CompanyDataform() {
       setSelectedCompany4("");
       setSelectedCategory4("");
       setSelectedSubscription4("");
+      setCategories([]);
+      setSubscriptions([]);
+      setCompanies([]);
     };
 
     return (
@@ -397,6 +462,14 @@ export default function CompanyDataform() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
+              onClick={() => {
+                if (selectedCompany1) {
+                  fetchcategories();  // Only fetch if company selected
+                } else {
+                  setCategories([]);  // 👈 clear list if no company
+                }
+              }}
+            
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Category</option>
@@ -450,6 +523,7 @@ export default function CompanyDataform() {
             <select
               value={selectedCategory2}
               onChange={(e) => setSelectedCategory2(e.target.value)}
+              onClick={() => fetchcategories2()}
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Category</option>
@@ -599,6 +673,7 @@ export default function CompanyDataform() {
 
             <select
               value={selectedCategory4}
+              onClick={() => fetchcategories4()}
               onChange={(e) => {
                 setSelectedCategory4(e.target.value);
                 setSelectedSubscription("");
@@ -617,8 +692,9 @@ export default function CompanyDataform() {
 
             <select
               value={selectedSubscription4}
+              onClick={() => fetchsubscription2()}
               onChange={(e) => setSelectedSubscription4(e.target.value)}
-              onClick={() => fetchsubscription()}
+              // onClick={() => fetchsubscription()}
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>

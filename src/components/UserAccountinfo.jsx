@@ -21,8 +21,9 @@ const UserAccountinfo = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'csrf-token': csrf_token,
       },
-      body: JSON.stringify({ csrf_token })
+   
     })
       .then((res) => {
         if (!res.ok) {

@@ -12,9 +12,11 @@ export default function CompanyDataform() {
 
   // add category
   const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedCompany5, setSelectedCompany5] = useState("");
   // add subscription
   const [selectedCompany1, setSelectedCompany1] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory1, setSelectedCategory1] = useState("");
   // add addson
   const [selectedCompany2, setSelectedCompany2] = useState("");
   const [selectedCategory2, setSelectedCategory2] = useState("");
@@ -22,6 +24,7 @@ export default function CompanyDataform() {
   const [selectedCompany3, setSelectedCompany3] = useState("");
   const [selectedCategory3, setSelectedCategory3] = useState("");
   const [selectedAddson3, setSelectedAddson3] = useState("");
+  const [selectedFreeAddson, setSelectedFreeAddson] = useState("");
   const [selectedSubscription, setSelectedSubscription] = useState("");
   // add package
   const [selectedCompany4, setSelectedCompany4] = useState("");
@@ -30,12 +33,7 @@ export default function CompanyDataform() {
   
   
  
-  const [newCategory, setNewCategory] = useState("");
-  const [newCompany, setNewCompany] = useState("");
-  const [newSubscription, setNewSubscription] = useState("");
-  const [newAddson, setNewAddson] = useState("");
-  const [AddsonPrice, setAddsonPrice] = useState("");
-  const [packagePrice, setPackagePrice] = useState("");
+
   const [packageType, setPackageType] = useState("");
 
   const csrf_token = localStorage.getItem("csrf_token");
@@ -169,13 +167,35 @@ export default function CompanyDataform() {
       console.error("Failed to fetch users:", error);
     }
   };
-  const fetchsubscription = async () => {
+  const fetchcategories5 = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_categories",
+        {
+          company_name: selectedCompany5,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      // console.log("Selected Company:", response);
+      const categoriesList = response.data.List;
+
+      setCategories(categoriesList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  const fetchsubscription1 = async () => {
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_subscriptions",
         {
           company_name: selectedCompany1,
-          category: selectedCategory,
+          category: selectedCategory1,
         },
         {
           headers: {
@@ -252,7 +272,7 @@ export default function CompanyDataform() {
         }
         
       );
-    //   console.log("addson:", response);
+      console.log("addson:", response);
       const AddsonList = response.data.List;
 
       setAddson(AddsonList);
@@ -260,28 +280,56 @@ export default function CompanyDataform() {
       console.error("Failed to fetch users:", error);
     }
   };
-//   const fetchgetpackage = async () => {
-//     try {
-//       const response = await axios.post(
-//         "http://104.236.100.170/api/get_prices",
-//         {
-//           company_name: selectedCompany4,
-//           category: selectedCategory4,
-//         },
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//             "csrf-token": csrf_token,
-//           },
-//         }
-//       );
-//       const subscriptionList = response.data.List;
+  const fetchFreeaddson = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_free_adds_on",
+        {
+          company_name: selectedCompany3,
+          category: selectedCategory3,
+            subscription: selectedSubscription,
+          
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+        
+      );
+    //   console.log("addson:", response);
+      const FreeAddsonList = response.data.List;
 
-//       setSubscriptions(subscriptionList);
-//     } catch (error) {
-//       console.error("Failed to fetch users:", error);
-//     }
-//   };
+      setFreeAddson(FreeAddsonList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  const fetchgetpackage = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/get_type",
+        {
+          company_name: selectedCompany4,
+          category: selectedCategory4,
+            subscription: selectedSubscription4,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "csrf-token": csrf_token,
+          },
+        }
+      );
+      console.log("package:", response);
+      const packageList = response.data.Price;
+
+      setPackages(packageList);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
 
   useEffect(() => {
     if (selectedCompany1) {
@@ -307,12 +355,14 @@ export default function CompanyDataform() {
     }
   }, [selectedCompany4]);
 
+  
+
 
   useEffect(() => {
-    if (selectedCompany1 && selectedCategory) {
-      fetchsubscription();
+    if (selectedCompany1 && selectedCategory1) {
+      fetchsubscription1();
     }
-  }, [selectedCompany1, selectedCategory]);
+  }, [selectedCompany1, selectedCategory1]);
 
   useEffect(() => {
     if (selectedCompany2 && selectedCategory2) {
@@ -329,7 +379,18 @@ export default function CompanyDataform() {
     if (selectedCompany3 && selectedCategory3) {
       fetchsubscription3();
     }
-  }, [selectedCompany3, selectedCategory3]);
+  }, [selectedCompany3, selectedCategory3, ]);
+  useEffect(() => {
+    if (selectedCompany3 && selectedCategory3 && selectedSubscription) {
+      fetchFreeaddson();
+    }
+  }, [selectedCompany3, selectedCategory3, selectedSubscription]);
+
+  useEffect(() => {
+    if (selectedCompany4 && selectedCategory4 && selectedSubscription4) {
+        fetchgetpackage();
+    }
+  }, [selectedCompany4, selectedCategory4, selectedSubscription4]);
 
   const postData = async (url, data) => {
     try {
@@ -351,34 +412,38 @@ export default function CompanyDataform() {
       await postData("http://104.236.100.170/api/delete_company", {
         company_name: selectedCompany,
       });
-      setCompanies([...companies, newCompany]);
+      // setCompanies([...companies, newCompany]);
       setSelectedCompany("");
     
   };
 
   const handledeleteCategory = async () => {
-    if (selectedCompany && selectedCategory) {
+    if (selectedCompany5 && selectedCategory) {
       await postData("http://104.236.100.170/api/delete_category", {
-        company_name: selectedCompany,
+        company_name: selectedCompany5,
         category: selectedCategory,
       });
-        setCategories([...categories, newCategory]);
+        // setCategories([...categories, newCategory]);
         setSelectedCategory("");
-      setCompanies([]);
+        setCategories([]);
+        setSelectedCompany5("");
+        setCompanies([]);
     }
   };
 
   const handledeleteSubscription = async () => {
-    if (selectedCompany1 && selectedCategory && selectedSubscription) {
+    if (selectedCompany1 && selectedCategory1 && selectedSubscription) {
       await postData("http://104.236.100.170/api/delete_subscription", {
         company_name: selectedCompany1,
-        category: selectedCategory,
+        category: selectedCategory1,
         subscription: selectedSubscription,
       });
-        setSubscriptions([...subscriptions, newSubscription]);
+        // setSubscriptions([...subscriptions, newSubscription]);
         setSelectedSubscription("");
-      setSelectedCategory("");
-      setCompanies([]);
+      setSelectedCategory1("");
+      setSelectedCompany1("");
+      setSubscriptions([]);
+      setCategories([]);  
     }
   };
   const handledeleteAddson = async () => {
@@ -392,24 +457,26 @@ export default function CompanyDataform() {
         });
        setSelectedAddson3("");
         setSelectedCategory2("");
-      setSelectedCompany2([]);
+      setSelectedCompany2("");
+      setAddson([]);
+      setCategories([]);
        
         
       }
     }};
-  const handleAddFreeAddson = async () => {
-    if (selectedCompany2 && selectedCategory3 && selectedAddson3 && selectedSubscription) {
+  const handledeleteFreeAddson = async () => {
+    if (selectedCompany3 && selectedCategory3 && selectedFreeAddson && selectedSubscription) {
       {
-        await postData("http://104.236.100.170/api/add_free_adds_on", {
+        await postData("http://104.236.100.170/api/delete_free_adds_on", {
           company_name: selectedCompany3,
           category: selectedCategory3,
-          adds_on: selectedAddson3,
+          adds_on: selectedFreeAddson,
           subscription: selectedSubscription,
         });
-        setFreeAddson("");
+        
         setSelectedCategory3("");
-        setSelectedCompany3([]);
-        setSelectedAddson3("");
+        setSelectedCompany3("");
+        setSelectedFreeAddson("");
         setSelectedSubscription("");
       }
     }};
@@ -435,7 +502,7 @@ export default function CompanyDataform() {
       };
 
       await postData("http://104.236.100.170/api/delete_type", payload);
-      setPackagePrice("");
+    
       setPackageType("");
       setSelectedCompany4("");
       setSelectedCategory4("");
@@ -480,8 +547,8 @@ export default function CompanyDataform() {
           <h2 className="text-lg font-semibold mb-4">Delete Category</h2>
           <div className="flex flex-col sm:flex-row gap-4">
             <select
-              value={selectedCompany}
-              onChange={(e) => setSelectedCompany(e.target.value)}
+              value={selectedCompany5}
+              onChange={(e) => setSelectedCompany5(e.target.value)}
               onClick={() => fetchcompanies()}
               className="border p-2 rounded w-full"
             >
@@ -498,7 +565,7 @@ export default function CompanyDataform() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-                onClick={() => fetchcategories()}
+                onClick={() => fetchcategories5()}
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Category</option>
@@ -541,8 +608,8 @@ export default function CompanyDataform() {
             </select>
 
             <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedCategory1}
+              onChange={(e) => setSelectedCategory1(e.target.value)}
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Category</option>
@@ -621,10 +688,10 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Addson</option>
-              {Addson.map((adds_on, idx) => {
+              {Addson.map((adds, idx) => {
                 return (
-                  <option key={idx} value={adds_on}>
-                    {adds_on}
+                  <option key={idx} value={adds}>
+                    {adds}
                   </option>
                 );
               })}
@@ -699,16 +766,16 @@ export default function CompanyDataform() {
               })}
             </select>
             <select
-              value={selectedAddson3}
-              onChange={(e) => setSelectedAddson3(e.target.value)}
+              value={selectedFreeAddson}
+              onChange={(e) => setSelectedFreeAddson(e.target.value)}
               // onClick={() => fetchsubscription()}
               className="border p-2 rounded w-full sm:w-1/5"
             >
-              <option value="">Select Adds On</option>
-              {Addson.map((add, idx) => {
+              <option value="">Select Free Adds On</option>
+              {FreeAddson.map((add_on, idx) => {
                 return (
-                  <option key={idx} value={add}>
-                    {add}
+                  <option key={idx} value={add_on}>
+                    {add_on}
                   </option>
                 );
               })}
@@ -720,7 +787,7 @@ export default function CompanyDataform() {
           </div>
 
           <button
-            onClick={handleAddFreeAddson}
+            onClick={handledeleteFreeAddson}
             className="mt-4 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 w-full sm:w-auto"
           >
             Delete Free Adds On
@@ -785,16 +852,21 @@ export default function CompanyDataform() {
               })}
             </select>
 
-            <select
+           
+              <select
               value={packageType}
               onChange={(e) => setPackageType(e.target.value)}
+            //   onClick={() => fetchsubscription()}
               className="border p-2 rounded w-full sm:w-1/5"
             >
-              <option value="">Select Type</option>
-              <option value="Single">Single</option>
-              <option value="Double">Double</option>
-              <option value="Triple">Triple</option>
-            </select>
+              <option value="">Select Package Type</option>
+              {packages.map((pkg, idx) => {
+                return (
+                  <option key={idx} value={pkg}>
+                    {pkg}
+                  </option> );
+           })}
+                </select>
 
            
           </div>

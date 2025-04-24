@@ -12,9 +12,12 @@ const DeleteUser = () => {
   // 📦 Backend se users fetch karne ka function
   const fetchUsers = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         'http://104.236.100.170/api/show_users',
-        { csrf_token }
+        { headers: {
+          'Content-Type': 'application/json',
+          'csrf-token': csrf_token, // Include CSRF token in headers
+        }, }
       );
       const userList = response.data.users || [];
 
@@ -47,8 +50,13 @@ const DeleteUser = () => {
       await axios.post(
         'http://104.236.100.170/api/delete_user',
         {
-          target_user_name: selectedUserId,
-          csrf_token: csrf_token,
+          target_user_name: selectedUserId, // ✅ Body
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'csrf-token': csrf_token,       // ✅ Headers
+          },
         }
       );
 

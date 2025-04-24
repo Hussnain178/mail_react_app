@@ -13,13 +13,14 @@ const CompanyTable = () => {
   // Fetch all companies for dropdown
   const fetchCompanies = async () => {
     try {
-      const res = await axios.post("http://104.236.100.170/api/get_companies",   {
+      const res = await axios.get("http://104.236.100.170/api/get_companies",   {
         headers: {
           "Content-Type": "application/json",
           "csrf-token": csrf_token,
         },
       });
-        
+      // console.log(res.data);
+
       
       setCompanies(res.data.List);
     } catch (err) {
@@ -39,7 +40,8 @@ const CompanyTable = () => {
           "csrf-token": csrf_token,
         },
       });
-      setCompanyInfo(res.data.List);
+      console.log(res.data);
+      setCompanyInfo(res.data.info);
     } catch (err) {
       console.error("Error fetching company info:", err);
     }
@@ -55,8 +57,8 @@ const CompanyTable = () => {
     }
   }, [selectedCompany]);
 
-  const { adds_on = {}, ...packages } = companyInfo || {};
-
+  // const { adds_on = {}, ...packages } = companyInfo || {};
+  
   return (
     <div className="bg-white min-h-screen">
         <Navbar />
@@ -70,69 +72,89 @@ const CompanyTable = () => {
         onChange={(e) => setSelectedCompany(e.target.value)}
       >
         <option value="">Select a company</option>
-        {companies.map((company) => (
-          <option key={company.id} value={company.id}>
-            {company.name}
-          </option>
-        ))}
+        {companies.map((company , idx) => { return (
+          <option key={idx} value={company}>
+            {company}
+          </option>)}
+        )}
       </select>
 
       {/* Show nothing if no company selected */}
       {!selectedCompany && <p className="text-gray-500">Please select a company to view info.</p>}
+      <div className="p-4">
+      <h3 className="font-semibold text-lg mb-2">Subscriptions with Free Add-ons</h3>
+<table className="table-auto w-full border">
+  <thead>
+    <tr className="bg-gray-100">
+      <th className="border px-4 py-2">Category</th>
+      <th className="border px-4 py-2">Subscription</th>
+      <th className="border px-4 py-2">Single</th>
+      <th className="border px-4 py-2">Double</th>
+      <th className="border px-4 py-2">Triple</th>
+      <th className="border px-4 py-2">Free Add-ons</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.entries(companyInfo).map(([category, content]) => {
+      const subscriptions = Object.entries(content).filter(([key]) => key !== 'adds_on');
+      
+      return subscriptions.map(([subscriptionName, subscriptionData], index) => {
+        const single = subscriptionData?.Single || "-";
+        const double = subscriptionData?.Double || "-";
+        const triple = subscriptionData?.Triple || "-";
+        const freeAddons = subscriptionData?.free_adds_on
+          ? Object.keys(subscriptionData.free_adds_on).filter(key => subscriptionData.free_adds_on[key] === "0")
+          : [];
 
-      {/* Package Table */}
-      {selectedCompany && (
-        <>
-          <h3 className="text-lg font-semibold mb-2">📦 Internet Packages</h3>
-          <table className="w-full border mb-6">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-2 border">Package</th>
-                <th className="p-2 border">Single</th>
-                <th className="p-2 border">Double</th>
-                <th className="p-2 border">Addsons</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(packages).map(([packageName, data]) => (
-                <tr key={packageName}>
-                  <td className="p-2 border">{packageName}</td>
-                  <td className="p-2 border">{data?.Single || "-"}</td>
-                  <td className="p-2 border">{data?.Double || "-"}</td>
-                  <td className="p-2 border">
-                    {Object.entries(data)
-                      .filter(([key]) => !["Single", "Double"].includes(key))
-                      .map(([key, val]) => `${key}: ${val}`)
-                      .join(", ") || "-"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        return (
+          <tr key={`${category}-${subscriptionName}`}>
+            <td className="border px-4 py-2">
+              {index === 0 ? category : ""}
+            </td>
+            <td className="border px-4 py-2">{subscriptionName}</td>
+            <td className="border px-4 py-2">{single}</td>
+            <td className="border px-4 py-2">{double}</td>
+            <td className="border px-4 py-2">{triple}</td>
+            <td className="border px-4 py-2">
+              {freeAddons.length > 0 ? freeAddons.join(", ") : "-"}
+            </td>
+          </tr>
+        );
+      });
+    })}
+  </tbody>
+</table>
 
-          {/* Adds On Table */}
-          <h3 className="text-lg font-semibold mb-2">🔧 Adds On</h3>
-          <table className="w-full border">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-2 border">Addson</th>
-                <th className="p-2 border">Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(adds_on).map(([key, val]) => (
-                <tr key={key}>
-                  <td className="p-2 border">{key}</td>
-                  <td className="p-2 border">{val}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
+
+<h3 className="font-semibold text-lg mb-2">All Add-ons</h3>
+<table className="table-auto w-full border">
+  <thead>
+    <tr className="bg-gray-100">
+      <th className="border px-4 py-2">Category</th>
+      <th className="border px-4 py-2">Add-On Name</th>
+      <th className="border px-4 py-2">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.entries(companyInfo).map(([category, content]) => {
+      const addsOn = content.adds_on || {};
+      const addOnEntries = Object.entries(addsOn);
+
+      return addOnEntries.map(([addOnName, price], index) => (
+        <tr key={`${category}-${addOnName}`}>
+          <td className="border px-4 py-2">{index === 0 ? category : ""}</td>
+          <td className="border px-4 py-2">{addOnName}</td>
+          <td className="border px-4 py-2">{price}</td>
+        </tr>
+      ));
+    })}
+  </tbody>
+</table>
+
     </div>
     </div>
-  );
-};
+    </div>
+   ); 
+}
 
 export default CompanyTable;

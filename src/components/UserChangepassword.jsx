@@ -26,7 +26,7 @@ const ChangePassword = () => {
 
       const bodyData = {
        
-        csrf_token: csrf_token,
+     
         user_password: user_password.trim(),
         new_password: new_password.trim(),
       };
@@ -37,7 +37,7 @@ const ChangePassword = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // "X-CSRFToken": csrf_token,
+          'csrf-token': csrf_token,
         },
         body: JSON.stringify(bodyData),
 

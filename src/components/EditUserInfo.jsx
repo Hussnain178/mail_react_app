@@ -8,7 +8,7 @@ const EditUserInfo = () => {
   const UserName = localStorage.getItem("user_name");
 
   const [formData, setFormData] = useState({
-    csrf_token: csrf_token || '',
+    
     new_agent_name: '',
     new_calling_name: '',
   });
@@ -33,7 +33,8 @@ const EditUserInfo = () => {
       const response = await fetch('http://104.236.100.170/api/update_information', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "csrf-token": csrf_token,
         },
         body: JSON.stringify(payload)
       });
