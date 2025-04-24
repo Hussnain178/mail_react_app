@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Eye, EyeOff } from "lucide-react"; // Eye icons
 
 const CreateUser = () => {
   const csrf_token = localStorage.getItem("csrf_token"); // Get CSRF token from local storage
   const navigate = useNavigate(); // Hook for navigation
 
   const [formData, setFormData] = useState({
-  
+    user_name: '',
     agent_name: '',
     calling_name: '',
     user_password: '',
     role: ''
   });
 
+  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
@@ -68,9 +70,8 @@ const CreateUser = () => {
     <div className="bg-black min-h-screen">
       <Navbar />
 
-      <div className="flex  items-center justify-center bg-black px-4">
+      <div className="flex items-center justify-center bg-black px-4">
         <form onSubmit={handleSubmit} className="relative bg-white p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
-          
           {/* Cross Button that redirects */}
           <button
             type="button"
@@ -100,7 +101,7 @@ const CreateUser = () => {
                   User Name
                 </label>
                 <input
-                required
+                  required
                   id="user_name"
                   name="user_name"
                   type="text"
@@ -116,7 +117,7 @@ const CreateUser = () => {
                   Agent Name
                 </label>
                 <input
-                required
+                  required
                   id="agent_name"
                   name="agent_name"
                   type="text"
@@ -135,7 +136,7 @@ const CreateUser = () => {
                   Calling Name
                 </label>
                 <input
-                required
+                  required
                   id="calling_name"
                   name="calling_name"
                   type="text"
@@ -150,16 +151,27 @@ const CreateUser = () => {
                 <label className="block text-sm font-medium mb-1" htmlFor="user_password">
                   User Password
                 </label>
-                <input
-                required
-                  id="user_password"
-                  name="user_password"
-                  type="password"
-                  value={formData.user_password}
-                  onChange={handleChange}
-                  placeholder="User-password"
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <div className="relative">
+                  <input
+                    required
+                    minLength={8} // ✅ Added password length validation
+                    id="user_password"
+                    name="user_password"
+                    type={showPassword ? "text" : "password"}
+                    value={formData.user_password}
+                    onChange={handleChange}
+                    placeholder="User-password"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 pr-10 outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -169,7 +181,7 @@ const CreateUser = () => {
               <div className="flex items-center space-x-6">
                 <div className="flex items-center">
                   <input
-                  required
+                    required
                     id="role-admin"
                     type="radio"
                     name="role"
@@ -184,12 +196,12 @@ const CreateUser = () => {
                 </div>
                 <div className="flex items-center">
                   <input
-                  required
+                    required
                     id="role-user"
                     type="radio"
                     name="role"
-                    value="user"
-                    checked={formData.role === "user"}
+                    value="agent"
+                    checked={formData.role === "agent"}
                     onChange={handleChange}
                     className="border rounded-lg px-3 py-2 outline-none focus:ring-blue-500"
                   />
