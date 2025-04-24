@@ -213,28 +213,12 @@ export default function CompanyDataform() {
     }
   };
 
-  // useEffect(() => {
-  //   if (selectedCompany1) {
-  //     fetchcategories();
-  //   }
-  // }, [selectedCompany1]);
-
-  // useEffect(() => {
-  //   if (selectedCompany2) {
-  //     fetchcategories2();
-  //   }
-  // }, [selectedCompany2]);
-
   useEffect(() => {
     if (selectedCompany3) {
       fetchcategories3();
     }
   }, [selectedCompany3]);
-  // useEffect(() => {
-  //   if (selectedCompany4) {
-  //     fetchcategories4();
-  //   }
-  // }, [selectedCompany4]);
+ 
 
   useEffect(() => {
     if (selectedCompany3 && selectedCategory3) {
@@ -247,11 +231,7 @@ export default function CompanyDataform() {
     }
   }, [selectedCompany3, selectedCategory3]);
 
-  // useEffect(() => {
-  //   if (selectedCompany4 && selectedCategory4) {
-  //     fetchsubscription2();
-  //   }
-  // }, [selectedCompany4, selectedCategory4]);
+
 
   const postData = async (url, data) => {
     try {

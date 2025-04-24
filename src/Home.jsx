@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
-
-
-import Navbar from "./components/Navbar";
-import ServicesPlan from "./components/ServicesPlan";
-
+import React from "react";
+import Adminpanel from "./components/Adminpanel";
+import UserPanel from "./components/UserPanel";
 
 export default function Home() {
+  const Message = localStorage.getItem("Message");
+
+  let content;
+
+  if (Message === "admin") {
+    content = <Adminpanel />;
+  } else if (Message === "user" || Message === "Agent") {
+    content = <UserPanel />;
+  } else {
+    content = <div>Unauthorized or unknown role.</div>;
+  }
+
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
-        <h1 className="text-2xl font-bold">Welcome to our application</h1>
-        <p className="mt-4">This is a sample page with our navbar component.</p>
-       <ServicesPlan />
-      </main>
+    <div>
+      {content}
     </div>
   );
 }

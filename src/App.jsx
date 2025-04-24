@@ -7,12 +7,12 @@ import ChangePasssword from './components/ChangePassword';
 import AccountInfo from './components/AccountInfo';
 import UserAccountinfo from './components/UserAccountinfo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import UserPanel from './components/UserPanel';
+// import UserPanel from './components/UserPanel';
 import UserChangepasssword from './components/UserChangepassword';
 import EditUserInfo from './components/EditUserInfo';
 import UserEditUserinfo from './components/UserEditinfo';
 import LogoutButton from './components/logoutButton';
-import PrivateRoute from "./components/PrivateRoute";
+// import PrivateRoute from "./components/PrivateRoute";
 import CompanyDataform from './components/CompanyDataform';
 import CompanyTable from './components/CompanyTable';
 import DeleteCompanyFormData from './components/DeleteCompanyFormData';
@@ -22,16 +22,9 @@ function App() {
    
       <Routes>
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/home" element={
-           <PrivateRoute>
-          <Home/>
-          </PrivateRoute>
-          } />
-        <Route path="/userpanel" element={
-          <PrivateRoute>
-          <UserPanel/>
-          </PrivateRoute>
-          } />
+        {/* <PrivateRoute> */}
+        <Route path="/home" element={<Home />} />
+        {/* </PrivateRoute> */}
         <Route path="/create-user" element={<CreateUser />} />
         <Route path="/add-package" element={<CompanyDataform />} />
         <Route path="/delete-package" element={<DeleteCompanyFormData />} />

@@ -5,7 +5,14 @@ import Navbar from "./Navbar";
 export default function CompanyDataform() {
   const [companies, setCompanies] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [categories2, setCategories2] = useState([]);
+  const [categories3, setCategories3] = useState([]);
+  const [categories4, setCategories4] = useState([]);
+  const [categories5, setCategories5] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
+  const [subscriptions2, setSubscriptions2] = useState([]);
+  const [subscriptions3, setSubscriptions3] = useState([]);
+  const [subscriptions4, setSubscriptions4] = useState([]);
   const [packages, setPackages] = useState([]);
   const [FreeAddson, setFreeAddson] = useState([]);
   const [Addson, setAddson] = useState([]);
@@ -118,7 +125,7 @@ export default function CompanyDataform() {
       // console.log("Selected Company:", response);
       const categoriesList = response.data.List;
 
-      setCategories(categoriesList);
+      setCategories2(categoriesList);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -140,7 +147,7 @@ export default function CompanyDataform() {
       // console.log("Selected Company:", response);
       const categoriesList = response.data.List;
 
-      setCategories(categoriesList);
+      setCategories4(categoriesList);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -162,7 +169,7 @@ export default function CompanyDataform() {
       // console.log("Selected Company:", response);
       const categoriesList = response.data.List;
 
-      setCategories(categoriesList);
+      setCategories3(categoriesList);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -184,7 +191,7 @@ export default function CompanyDataform() {
       // console.log("Selected Company:", response);
       const categoriesList = response.data.List;
 
-      setCategories(categoriesList);
+      setCategories5(categoriesList);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -228,7 +235,7 @@ export default function CompanyDataform() {
       );
       const subscriptionList = response.data.List;
 
-      setSubscriptions(subscriptionList);
+      setSubscriptions4(subscriptionList);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -250,7 +257,7 @@ export default function CompanyDataform() {
       );
       const subscriptionList = response.data.List;
 
-      setSubscriptions(subscriptionList);
+      setSubscriptions3(subscriptionList);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     }
@@ -478,6 +485,9 @@ export default function CompanyDataform() {
         setSelectedCompany3("");
         setSelectedFreeAddson("");
         setSelectedSubscription("");
+        setFreeAddson([]);
+        setCategories([]);
+        setSubscriptions([]);
       }
     }};
 
@@ -569,7 +579,7 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Category</option>
-              {categories.map((cat, idx) => {
+              {categories5.map((cat, idx) => {
                 return (
                   <option key={idx} value={cat}>
                     {cat}
@@ -625,7 +635,7 @@ export default function CompanyDataform() {
             <select
               value={selectedSubscription}
               onChange={(e) => setSelectedSubscription(e.target.value)}
-              onClick={() => fetchsubscription()}
+              onClick={() => fetchsubscription1()}
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>
@@ -674,7 +684,7 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Category</option>
-              {categories.map((cat, idx) => {
+              {categories2.map((cat, idx) => {
                 return (
                   <option key={idx} value={cat}>
                     {cat}
@@ -741,10 +751,10 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Category</option>
-              {categories.map((cat, idx) => {
+              {categories3.map((cat1, idx) => {
                 return (
-                  <option key={idx} value={cat}>
-                    {cat}
+                  <option key={idx} value={cat1}>
+                    {cat1}
                   </option>
                 );
               })}
@@ -757,7 +767,7 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>
-              {subscriptions.map((sub, idx) => {
+              {subscriptions3.map((sub, idx) => {
                 return (
                   <option key={idx} value={sub}>
                     {sub}
@@ -827,7 +837,7 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Category</option>
-              {categories.map((cat, idx) => {
+              {categories4.map((cat, idx) => {
                 return (
                   <option key={idx} value={cat}>
                     {cat}
@@ -843,7 +853,7 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>
-              {subscriptions.map((sub, idx) => {
+              {subscriptions4.map((sub, idx) => {
                 return (
                   <option key={idx} value={sub}>
                     {sub}

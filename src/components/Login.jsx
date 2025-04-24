@@ -8,20 +8,16 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
+  
   // ✅ Auto-login if already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("csrf_token");
-    const role = localStorage.getItem("Message");
-
-    if (token) {
-      if (role === "admin") {
-        navigate("/home");
-      } else if (role === "user") {
-        navigate("/userpanel");
-      }
-    }
-  }, []);
+  // ✅ Auto-login if already logged in
+useEffect(() => {
+  const token = localStorage.getItem("csrf_token");
+  
+  if (token) {
+    navigate("/home");
+  }
+}, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,13 +43,7 @@ export default function LoginForm() {
         localStorage.setItem("user_name", user_name);
         localStorage.setItem("Message", data.Message);
 
-        if (data.Message === "admin") {
-          navigate("/home");
-        } else if (data.Message === "user") {
-          navigate("/userpanel");
-        } else {
-          setError("Unknown Message received from server");
-        }
+         navigate("/home");
       } else {
         setError(data.message || "Login failed");
       }
