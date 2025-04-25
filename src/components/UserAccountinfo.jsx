@@ -18,12 +18,12 @@ const UserAccountinfo = () => {
     }
 
     fetch('http://104.236.100.170/api/show_user_info', {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'csrf-token': csrf_token,
       },
-   
+      
     })
       .then((res) => {
         if (!res.ok) {
@@ -67,7 +67,7 @@ const UserAccountinfo = () => {
           <button
             type="button"
             className="absolute right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
-            onClick={() => navigate("/userpanel")}
+            onClick={() => navigate("/home")}
           >
             &times;
           </button>
@@ -119,7 +119,7 @@ const UserAccountinfo = () => {
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300"
-              onClick={() => navigate("/useredit-user")}
+              onClick={() => navigate('/useredit-user')}
             >
               Edit
             </button>

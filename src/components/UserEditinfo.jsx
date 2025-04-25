@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import UserNavbar from './UserNavbar';
 
-const EditUserInfo = () => {
+const UserEditinfo = () => {
   const navigate = useNavigate();
   const csrf_token = localStorage.getItem("csrf_token");
   const UserName = localStorage.getItem("user_name");
 
   const [formData, setFormData] = useState({
-  
+    
     new_agent_name: '',
     new_calling_name: '',
   });
@@ -46,7 +46,7 @@ const EditUserInfo = () => {
       const result = await response.json();
       console.log('Success:', result);
       alert('User info updated successfully!');
-      navigate("/userpanel");
+      navigate("/home");
 
     } catch (error) {
       console.error('Update failed:', error);
@@ -65,7 +65,7 @@ const EditUserInfo = () => {
           <button
             type="button"
             className="absolute right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
-            onClick={() => navigate("/userpanel")}
+            onClick={() => navigate("/home")}
           >
             &times;
           </button>
@@ -133,4 +133,4 @@ const EditUserInfo = () => {
   );
 };
 
-export default EditUserInfo;
+export default UserEditinfo;
