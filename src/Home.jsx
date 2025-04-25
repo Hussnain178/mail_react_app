@@ -9,10 +9,10 @@ export default function Home() {
 
   if (Message === "admin") {
     content = <Adminpanel />;
-  } else if (Message === "user" || Message === "Agent") {
+  } else if ( Message === "agent") {
     content = <UserPanel />;
   } else {
-    content = <div>Unauthorized or unknown role.</div>;
+    content = <div> unknown role.</div>;
   }
 
   return (
