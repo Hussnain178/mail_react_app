@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react"; // 👈 Add this line
 
 export default function LoginForm() {
   const [user_name, setUser_name] = useState("");
   const [user_password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // 👁 added
+ const [showOldPassword, setShowOldPassword] = useState(false); // 👈
+  const [showNewPassword, setShowNewPassword] = useState(false); // 👈
 
   const navigate = useNavigate();
   
@@ -88,20 +90,20 @@ useEffect(() => {
           <div className="relative">
             <input
               id="user_password"
-              type={showPassword ? "text" : "password"}
+              type={showOldPassword ? "text" : "password"}
               required
               value={user_password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full border rounded-lg px-3 py-2 pr-10 outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
             />
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2.5 cursor-pointer text-gray-500"
-              title={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? "👁‍🗨" : "👁"}
-            </span>
+           <button
+                         type="button"
+                         className="absolute top-3 right-3 text-gray-500"
+                         onClick={() => setShowOldPassword(!showOldPassword)}
+                       >
+                         {showOldPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                       </button>
           </div>
         </div>
 

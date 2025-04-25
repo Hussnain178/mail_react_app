@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { Eye, EyeOff } from "lucide-react"; // Eye icons
+// import api from '../axios'; // ya jahan bhi aapne axios instance banaya ho
+
 
 const CreateUser = () => {
-  const csrf_token = localStorage.getItem("csrf_token"); // Get CSRF token from local storage
+  // const csrf_token = localStorage.getItem("csrf_token"); // Get CSRF token from local storage
   const navigate = useNavigate(); // Hook for navigation
 
   const [formData, setFormData] = useState({
@@ -28,26 +30,28 @@ const CreateUser = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("CSRF Token: ", csrf_token);
     e.preventDefault();
     setLoading(true);
     setMessage({ type: '', text: '' });
-
+  
+    const csrf_token = localStorage.getItem("csrf_token");
+  
     try {
       const response = await fetch('http://104.236.100.170/api/create_user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'csrf-token': csrf_token, // Include CSRF token in headers
+          'csrf-token': csrf_token,
         },
         body: JSON.stringify(formData),
       });
-
-      if (response.ok) {
-        const data = await response.json();
+  
+      const status = response.status;
+      const data = await response.json();
+  
+      if (status === 200) {
         setMessage({ type: 'success', text: 'User created successfully!' });
-        console.log(data);
-
+  
         setFormData({
           user_name: '',
           agent_name: '',
@@ -55,17 +59,21 @@ const CreateUser = () => {
           user_password: '',
           role: ''
         });
+  
+      } else if (status === 400) {
+        alert(data.Message);
       } else {
-        setMessage({ type: 'error', text: 'User already exist!' });
+        setMessage({ type: 'error', text: result.message || "Something went wrong." });
       }
+  
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Network error:", error);
       setMessage({ type: 'error', text: 'Network error. Please try again.' });
     } finally {
       setLoading(false);
     }
   };
-
+    
   return (
     <div className="bg-black min-h-screen">
       <Navbar />

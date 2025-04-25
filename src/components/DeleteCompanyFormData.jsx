@@ -407,7 +407,10 @@ export default function CompanyDataform() {
           "csrf-token": csrf_token,
         },
       });
-      alert(response.data.message || "Successfully deleted!");
+      alert(data.Message || "Successfully deleted!");
+     
+      
+    
     } catch (error) {
       console.error("API Error:", error);
       alert("Error: Failed to process the request.");
@@ -419,6 +422,7 @@ export default function CompanyDataform() {
       await postData("http://104.236.100.170/api/delete_company", {
         company_name: selectedCompany,
       });
+
       // setCompanies([...companies, newCompany]);
       setSelectedCompany("");
     
@@ -727,8 +731,8 @@ export default function CompanyDataform() {
               onClick={() => fetchcompanies()}
               onChange={(e) => {
                 setSelectedCompany3(e.target.value);
-                setSelectedCategory("");
-                setSelectedSubscription("");
+                // setSelectedCategory("");
+                // setSelectedSubscription("");
               }}
               className="border p-2 rounded w-full sm:w-1/5"
             >
@@ -746,7 +750,7 @@ export default function CompanyDataform() {
               value={selectedCategory3}
               onChange={(e) => {
                 setSelectedCategory3(e.target.value);
-                setSelectedSubscription("");
+                // setSelectedSubscription("");
               }}
               className="border p-2 rounded w-full sm:w-1/5"
             >
@@ -763,7 +767,7 @@ export default function CompanyDataform() {
             <select
               value={selectedSubscription}
               onChange={(e) => setSelectedSubscription(e.target.value)}
-            //   onClick={() => fetchsubscription3()}
+            
               className="border p-2 rounded w-full sm:w-1/5"
             >
               <option value="">Select Subscription</option>
@@ -813,8 +817,8 @@ export default function CompanyDataform() {
               onClick={() => fetchcompanies()}
               onChange={(e) => {
                 setSelectedCompany4(e.target.value);
-                setSelectedCategory("");
-                setSelectedSubscription("");
+                // setSelectedCategory("");
+                // setSelectedSubscription4("");
               }}
               className="border p-2 rounded w-full sm:w-1/5"
             >
@@ -832,7 +836,7 @@ export default function CompanyDataform() {
               value={selectedCategory4}
               onChange={(e) => {
                 setSelectedCategory4(e.target.value);
-                setSelectedSubscription("");
+                // setSelectedSubscription4("");
               }}
               className="border p-2 rounded w-full sm:w-1/5"
             >

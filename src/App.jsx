@@ -12,7 +12,7 @@ import UserChangepasssword from './components/UserChangepassword';
 import EditUserInfo from './components/EditUserInfo';
 import UserEditUserinfo from './components/UserEditinfo';
 import LogoutButton from './components/logoutButton';
-// import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import CompanyDataform from './components/CompanyDataform';
 import CompanyTable from './components/CompanyTable';
 import DeleteCompanyFormData from './components/DeleteCompanyFormData';
@@ -22,21 +22,21 @@ function App() {
    
       <Routes>
         <Route path="/login" element={<LoginForm />} />
-        {/* <PrivateRoute> */}
-        <Route path="/home" element={<Home />} />
-        {/* </PrivateRoute> */}
-        <Route path="/create-user" element={<CreateUser />} />
-        <Route path="/add-package" element={<CompanyDataform />} />
-        <Route path="/delete-package" element={<DeleteCompanyFormData />} />
-        <Route path="/show-company" element={<CompanyTable />} />
-        <Route path="/delete-user" element={<DeleteUser />} />
-        <Route path="/change-password" element={<ChangePasssword />} />
-        <Route path="/userchange-password" element={<UserChangepasssword />} />
-        <Route path='/Account-Info' element={<AccountInfo />} />
-        <Route path='/userAccount-Info' element={<UserAccountinfo />} />
-        <Route path='/edit-user' element={<EditUserInfo />} />
-        <Route path='/useredit-user' element={<UserEditUserinfo />} />
-        <Route path='/logout' element={<LogoutButton />} />
+        
+        <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+        
+        <Route path="/create-user" element={<PrivateRoute><CreateUser /></PrivateRoute>} />
+        <Route path="/add-package" element={<PrivateRoute><CompanyDataform /></PrivateRoute>} />
+        <Route path="/delete-package" element={<PrivateRoute><DeleteCompanyFormData /></PrivateRoute>} />
+        <Route path="/show-company" element={<PrivateRoute><CompanyTable /></PrivateRoute>} />
+        <Route path="/delete-user" element={<PrivateRoute><DeleteUser /></PrivateRoute>} />
+        <Route path="/change-password" element={<PrivateRoute><ChangePasssword /></PrivateRoute>} />
+        <Route path="/userchange-password" element={<PrivateRoute><UserChangepasssword /></PrivateRoute>} />
+        <Route path='/Account-Info' element={<PrivateRoute><AccountInfo /></PrivateRoute>} />
+        <Route path='/userAccount-Info' element={<PrivateRoute><UserAccountinfo /></PrivateRoute>} />
+        <Route path='/edit-user' element={<PrivateRoute><EditUserInfo /></PrivateRoute>} />
+        <Route path='/useredit-user' element={<PrivateRoute><UserEditUserinfo /></PrivateRoute>} />
+        <Route path='/logout' element={<PrivateRoute><LogoutButton /></PrivateRoute>} />
       </Routes>
   
   );

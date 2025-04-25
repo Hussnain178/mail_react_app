@@ -40,35 +40,49 @@ const DeleteUser = () => {
   // ❌ User delete karne ka function
   const handleDelete = async (e) => {
     e.preventDefault();
-
+  
     if (!selectedUserId) {
       alert('Please select a user to delete');
       return;
     }
-
+  
     try {
-      await axios.post(
+      const response = await axios.post(
         'http://104.236.100.170/api/delete_user',
         {
-          target_user_name: selectedUserId, // ✅ Body
+          target_user_name: selectedUserId,
         },
         {
           headers: {
             'Content-Type': 'application/json',
-            'csrf-token': csrf_token,       // ✅ Headers
+            'csrf-token': csrf_token,
           },
         }
       );
-
+  
       alert('User deleted successfully');
       setSelectedUserId('');
-      fetchUsers(); // 🔄 Refresh after deletion
-
+      fetchUsers(); // Refresh list
+  
     } catch (error) {
-      console.error('Error deleting user:', error);
-      alert('User delete nahi ho saka');
+      if (error.response) {
+        const status = error.response.status;
+        const data = error.response.data;
+  
+        if (status === 400) {
+          alert(data.Message || 'Failed to delete user'); // Show message from backend
+        } else {
+          alert('Failed to delete user. Please try again.');
+        }
+  
+        console.error('Error deleting user:', data);
+      } else {
+        alert('Something went wrong. Please check your network.');
+        console.error('Unexpected error:', error);
+      }
     }
   };
+  
 
   return (
     <div className="bg-black min-h-screen">

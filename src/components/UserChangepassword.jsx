@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react"; 
 import UserNavbar from './UserNavbar'; // Importing the UserNavbar component
 
 const ChangePassword = () => {
@@ -10,6 +11,9 @@ const ChangePassword = () => {
   const [new_password, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+
+   const [showOldPassword, setShowOldPassword] = useState(false); // 👈
+    const [showNewPassword, setShowNewPassword] = useState(false); // 👈
 
   const handleChangePassword = async (e) => {
    
@@ -110,13 +114,21 @@ const ChangePassword = () => {
             <input
               id="old-password"
               name="current-password"
-              type="password"
+              type={showOldPassword ? "text" : "password"}
               autoComplete="current-password"
               placeholder="old password"
               value={user_password}
               onChange={(e) => setOldPassword(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
+                           <button
+                            type="button"
+                            className="absolute top-9 right-3 text-gray-500"
+                            onClick={() => setShowOldPassword(!showOldPassword)}
+                          >
+                            {showOldPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                          </button>
+
           </div>
 
           {/* New Password */}
@@ -127,13 +139,20 @@ const ChangePassword = () => {
             <input
               id="new-password"
               name="new-password"
-              type="password"
+              type={showNewPassword ? "text" : "password"}
               autoComplete="new-password"
               placeholder="new password"
               value={new_password}
               onChange={(e) => setNewPassword(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <button
+                            type="button"
+                            className="absolute top-9 right-3 text-gray-500"
+                            onClick={() => setShowNewPassword(!showNewPassword)}
+                          >
+                            {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                          </button>
           </div>
 
           {/* Error / Success messages */}
