@@ -218,6 +218,11 @@ export default function CompanyDataform() {
   };
 
   useEffect(() => {
+    fetchcompanies();
+  }, []);
+  
+
+  useEffect(() => {
     if (selectedCompany3) {
       fetchcategories3();
     }
@@ -660,7 +665,7 @@ export default function CompanyDataform() {
               onClick={() => fetchcategories4()}
               onChange={(e) => {
                 setSelectedCategory4(e.target.value);
-                setSelectedSubscription("");
+                // setSelectedSubscription("");
               }}
               className="border p-2 rounded w-full sm:w-1/5"
             >

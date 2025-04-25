@@ -536,7 +536,7 @@ export default function CompanyDataform() {
               value={selectedCompany}
               onChange={(e) => setSelectedCompany(e.target.value)}
               onClick={() => fetchcompanies()}
-              className="border p-2 rounded w-full"
+               className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Company</option>
               {companies.map((company, idx) => {
@@ -549,7 +549,7 @@ export default function CompanyDataform() {
             </select>
             <button
               onClick={handledeleteCompany}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              c className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 sm:w-auto"
             >
              Delete Company
             </button>
@@ -564,7 +564,7 @@ export default function CompanyDataform() {
               value={selectedCompany5}
               onChange={(e) => setSelectedCompany5(e.target.value)}
               onClick={() => fetchcompanies()}
-              className="border p-2 rounded w-full"
+              className="border p-2 rounded w-full sm:w-1/3"
             >
               <option value="">Select Company</option>
               {companies.map((company, idx) => {

@@ -206,7 +206,7 @@ const AgentForm = () => {
     Sender Mail
   </label>
   <select
-    required
+    // required
     className={inputStyles}
     id="sender_mail"
     name="sender_mail"
@@ -490,7 +490,7 @@ const AgentForm = () => {
             </div> */}
 
             {/* Email Address */}
-            <div>
+            {/* <div>
               <label className="block text-sm font-medium mt-2" htmlFor="email">Email Address</label>
               <input
                 required
@@ -502,7 +502,7 @@ const AgentForm = () => {
                 onChange={handleChange}
                 placeholder="abc@gmail.com"
               />
-            </div>
+            </div> */}
 
              {/* Cell Number */}
              <div>
@@ -575,15 +575,22 @@ const AgentForm = () => {
                 placeholder="Manager comments here"
               ></textarea>
             </div>
+            <br />
 
-            <div className="mt-5 flex justify-center space-x-4">
-              <button
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-                type="submit"
-              >
-                Submit Form
-              </button>
-            </div>
+            <div className="w-full mt-5">
+  <div className="flex justify-center">
+    <button
+      className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition"
+      type="submit"
+    >
+      Submit Form
+    </button>
+  </div>
+</div>
+
+
+
+
           </div>
         </form>
       </div>
