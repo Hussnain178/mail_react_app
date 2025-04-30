@@ -18,7 +18,6 @@ const SentInfoTable = () => {
         "http://104.236.100.170/api/get_sent_info",
         {
           page_number: page,
-          company_name: "mumzamil_company",
         },
         {
           headers: {
@@ -61,11 +60,12 @@ const SentInfoTable = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="w-full overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr className="bg-gray-100 text-left">
-                <th className="py-2 px-4 border-b">Name</th>
+                <th className="py-2 px-4 border-b">ID</th>
+                <th className="py-2 px-4 border-b">Sender Mail</th>
                 <th className="py-2 px-4 border-b">Agent User Name</th>
                 <th className="py-2 px-4 border-b">Business Name</th>
                 <th className="py-2 px-4 border-b">Business Email</th>
@@ -78,7 +78,8 @@ const SentInfoTable = () => {
               {sentInfo.length > 0 ? (
                 sentInfo.map((item, index) => (
                   <tr key={index} className="hover:bg-gray-50">
-                    <td className="py-2 px-4 border-b">{item.name}</td>
+                    <td className="py-2 px-4 border-b">{item._id}</td>
+                    <td className="py-2 px-4 border-b">{item.sender_mail}</td>
                     <td className="py-2 px-4 border-b">{item.agent_user_name}</td>
                     <td className="py-2 px-4 border-b">{item.business_name}</td>
                     <td className="py-2 px-4 border-b">{item.business_email}</td>
@@ -87,7 +88,7 @@ const SentInfoTable = () => {
                     <td className="py-2 px-4 border-b">
                       <button
                         className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                        onClick={() => navigate("/detail", { state: item })} // ✅ Step 3
+                        onClick={() => navigate("/detail", { state: item._id })} // ✅ Step 3
                       >
                         View
                       </button>
@@ -96,7 +97,7 @@ const SentInfoTable = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7" className="py-4 text-center">
+                  <td colSpan="8" className="py-4 text-center">
                     No Data Found
                   </td>
                 </tr>

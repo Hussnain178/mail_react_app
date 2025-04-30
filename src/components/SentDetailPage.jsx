@@ -14,17 +14,20 @@ const SentDetailPage = () => {
 
   useEffect(() => {
     if (rowData) {
-      fetchDetailData(rowData); // sending all row keys to API
+      const payload = { id: rowData }; // id ko key:value bana kar bhejna
+      fetchDetailData(payload);
     } else {
       setLoading(false);
     }
   }, []);
 
+
+
   const fetchDetailData = async (rowPayload) => {
     try {
       const response = await axios.post(
-        "http://104.236.100.170/api/get_sent_info_detail", // 🔁 your real API
-        rowPayload, // sending full row as payload
+        "http://104.236.100.170/api/get_mail_info",
+        rowPayload,
         {
           headers: {
             "Content-Type": "application/json",
@@ -32,14 +35,15 @@ const SentDetailPage = () => {
           },
         }
       );
-
-      setDetailData(response.data); // result from backend
+  
+      setDetailData(response.data.List); // 👈 Only store the List object
     } catch (error) {
       console.error("Detail fetch error:", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   if (loading) return <div className="p-6">Loading...</div>;
 
@@ -65,11 +69,14 @@ const SentDetailPage = () => {
 
       <div className="space-y-3">
         {/* Dynamically show all key-value pairs from detailData */}
-        {Object.entries(detailData).map(([key, value]) => (
-          <div key={key}>
-            <strong>{key.replace(/_/g, " ")}:</strong> {value?.toString()}
-          </div>
-        ))}
+        {Object.entries(detailData)
+  .filter(([key]) => key !== "mail_html")
+  .map(([key, value]) => (
+    <div key={key}>
+      <strong>{key.replace(/_/g, " ")}:</strong> {value?.toString()}
+    </div>
+))}
+
       </div>
 
       <div className="mt-6 text-center">

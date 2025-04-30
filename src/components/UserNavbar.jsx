@@ -38,26 +38,17 @@ console.log("Navbar username:", userName); // ✅ Debug here too
                         Show Company
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/AgentForm" className="text-white hover:text-gray-300">
+                      Agent Form
+                      </Link>
+                    </li>
                     </ul>
                     </div>
 
         {/* Buttons + Dropdown */}
         <div className="flex items-center space-x-4">
-          {/* Button 1
-          <Link to="/create-user">
-         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"> 
-               Create User
-          </button>
-          </Link> */}
-
-
-          {/* Button 2
-          <Link to="/delete-user">
-          <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
-            Delete User
-          </button>
-          </Link> */}
-
+    
           {/* Profile dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
