@@ -189,7 +189,7 @@ const AgentForm = () => {
                 onChange={handleChange}
               >
                 <option value="">-- Select Mail Type --</option>
-                <option value="confirmation_type">Confirmation</option>
+                <option value="confirmation">Confirmation</option>
                 <option value="proposal">Proposal</option>
               </select>
             </div>
