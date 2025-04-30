@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const ProtectedRoute = ({ children }) => {
+const PrivateRoute = ({ children, allowedRoles = [] }) => {
   const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
   const debounceTimer = useRef(null);
@@ -37,7 +37,6 @@ const ProtectedRoute = ({ children }) => {
   };
 
   useEffect(() => {
-    // First time token check on mount
     verifyToken();
 
     const handleUserActivity = () => {
@@ -45,27 +44,35 @@ const ProtectedRoute = ({ children }) => {
         clearTimeout(debounceTimer.current);
       }
 
-      // Debounce the token verification to run only after 5000ms of no activity
       debounceTimer.current = setTimeout(() => {
         verifyToken();
-      }, 5000); // 5000ms debounce delay
+      }, 5000);
     };
 
-    // Add event listeners for user interactions (click, keydown, mousemove, focus)
     window.addEventListener("click", handleUserActivity);
-    
 
     return () => {
-      // Cleanup event listeners and debounce timer
       window.removeEventListener("click", handleUserActivity);
-  
+
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }
     };
   }, [navigate]);
 
+  const userRole = (localStorage.getItem("Message") || "").toLowerCase();
+ // example: "admin" or "agent"
+ 
+
+  if (isVerified && !allowedRoles.includes(userRole)) {
+    return (
+      <div style={{ color: "red", textAlign: "center", padding: "20px" }}>
+        Access Denied: You are not authorized to view this page.
+      </div>
+    );
+  }
+
   return isVerified ? children : null;
 };
 
-export default ProtectedRoute;
+export default PrivateRoute;

@@ -57,7 +57,7 @@ const UserAccountinfo = () => {
     );
   }
 
-  const { user_name, agent_name, calling_name } = userData.user_info;
+  const { user_name, agent_name, calling_name , role} = userData.user_info;
 
   return (
     <div className="bg-black min-h-screen">
@@ -110,6 +110,18 @@ const UserAccountinfo = () => {
               id="callingname"
               type="text"
               value={calling_name}
+              disabled
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1" htmlFor="Role">
+              Role
+            </label>
+            <input
+              id="role"
+              type="text"
+              value={role}
               disabled
               className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
             />

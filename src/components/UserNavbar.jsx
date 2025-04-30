@@ -31,6 +31,15 @@ console.log("Navbar username:", userName); // ✅ Debug here too
          <h1 className="text-white text-2xl font-bold">User Panel</h1>
           </Link>
         </div>
+         <div className="flex items-center">
+                  <ul className="flex space-x-12">
+                    <li>
+                      <Link to="/show-company" className="text-white hover:text-gray-300">
+                        Show Company
+                      </Link>
+                    </li>
+                    </ul>
+                    </div>
 
         {/* Buttons + Dropdown */}
         <div className="flex items-center space-x-4">
@@ -69,10 +78,10 @@ console.log("Navbar username:", userName); // ✅ Debug here too
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-              <Link to="/userAccount-Info">
+              <Link to="/Account-Info">
                 <DropdownMenuItem>Account Info</DropdownMenuItem>
                 </Link>
-                 <Link to="/userchange-password">
+                 <Link to="/change-password">
                  <DropdownMenuItem>Change Password</DropdownMenuItem>
                  </Link>
               </DropdownMenuGroup>

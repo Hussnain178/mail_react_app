@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from './Navbar';
+import UserNavbar from "./UserNavbar";
 
 const EditUserInfo = () => {
   const navigate = useNavigate();
   const csrf_token = localStorage.getItem("csrf_token");
   const UserName = localStorage.getItem("user_name");
+
+
+  const Message = localStorage.getItem("Message");
+    
+      let content;
+    
+      if (Message === "admin") {
+        content = <Navbar />;
+      }
+       else {
+        content = <UserNavbar />;
+      }
 
   const [formData, setFormData] = useState({
     
@@ -56,7 +69,7 @@ const EditUserInfo = () => {
 
   return (
     <div className="bg-black min-h-screen">
-      <Navbar />
+      {content}
       <div className="flex  items-center justify-center bg-black px-4">
         <form
           onSubmit={handleSubmit}

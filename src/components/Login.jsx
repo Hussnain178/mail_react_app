@@ -8,7 +8,6 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
  const [showOldPassword, setShowOldPassword] = useState(false); // 👈
-  const [showNewPassword, setShowNewPassword] = useState(false); // 👈
 
   const navigate = useNavigate();
   
@@ -44,7 +43,9 @@ useEffect(() => {
       if (response.ok) {
         localStorage.setItem("csrf_token", data.csrf_token);
         localStorage.setItem("user_name", user_name);
-        localStorage.setItem("Message", data.Message);
+        localStorage.setItem("Message", data.Message); 
+       
+    
 
          navigate("/home");
       } else {

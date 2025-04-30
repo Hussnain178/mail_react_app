@@ -1,7 +1,7 @@
 import React from "react";
 import Adminpanel from "./components/Adminpanel";
 import UserPanel from "./components/UserPanel";
-// import Login from "./components/Login";
+
 
 export default function Home() {
   const Message = localStorage.getItem("Message");

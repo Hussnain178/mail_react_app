@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import Navbar from './Navbar';
+import UserNavbar from "./UserNavbar";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -15,6 +16,17 @@ const ChangePassword = () => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const Message = localStorage.getItem("Message");
+    
+      let content;
+    
+      if (Message === "admin") {
+        content = <Navbar />;
+      }
+       else {
+        content = <UserNavbar />;
+      }
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -66,7 +78,7 @@ const ChangePassword = () => {
 
   return (
     <div className="bg-black min-h-screen">
-      <Navbar />
+      {content}
       <div className="flex items-center justify-center bg-black px-4">
         <form
           onSubmit={handleChangePassword}

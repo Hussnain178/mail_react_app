@@ -41,6 +41,12 @@ export default function CompanyDataform() {
   const [packagePrice, setPackagePrice] = useState("");
   const [packageType, setPackageType] = useState("");
 
+
+ 
+  
+  const [Mail, setMail] = useState([]);
+  
+
   const csrf_token = localStorage.getItem("csrf_token");
 
   // 📦 Backend se users fetch karne ka function
@@ -217,9 +223,9 @@ export default function CompanyDataform() {
     }
   };
 
-  useEffect(() => {
-    fetchcompanies();
-  }, []);
+  // useEffect(() => {
+  //   fetchcompanies();
+  // }, []);
   
 
   useEffect(() => {
@@ -258,16 +264,23 @@ export default function CompanyDataform() {
   };
 
   const handleAddCompany = async () => {
-    if (newCompany && !companies.includes(newCompany)) {
+    if (newCompany && Mail ) {
       await postData("http://104.236.100.170/api/add_company", {
         company_name: newCompany,
+        mail: Mail,
+        // sender_name: SenderName ,
       });
-      setCompanies([...companies, newCompany]);
+      
       setCompanies([]);
       setNewCompany("");
-      // setNewCompany("");
+      setMail("");
+      // setSenderName("");
+      
     }
   };
+
+ 
+
 
   const handleAddCategory = async () => {
     if (selectedCompany && newCategory) {
@@ -382,6 +395,15 @@ export default function CompanyDataform() {
               onChange={(e) => setNewCompany(e.target.value)}
               className="border p-2 rounded w-full"
             />
+             <input
+              type="email"
+              placeholder="Enter Sender Mail"
+              value={Mail}
+              onChange={(e) => setMail(e.target.value)}
+              className="border p-2 rounded w-full "
+            />
+        
+
             <button
               onClick={handleAddCompany}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -390,6 +412,9 @@ export default function CompanyDataform() {
             </button>
           </div>
         </div>
+
+        
+
 
         {/* -------------------------- Add Category -------------------------- */}
         <div className="bg-white shadow rounded p-4">

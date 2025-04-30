@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
+import UserNavbar from "./UserNavbar"
 
 const CompanyTable = () => {
     const csrf_token = localStorage.getItem("csrf_token");
@@ -9,6 +10,18 @@ const CompanyTable = () => {
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
   const [companyInfo, setCompanyInfo] = useState("");
+
+
+  const Message = localStorage.getItem("Message");
+  
+    let content;
+  
+    if (Message === "admin") {
+      content = <Navbar />;
+    }
+     else {
+      content = <UserNavbar />;
+    }
 
   // Fetch all companies for dropdown
   const fetchCompanies = async () => {
@@ -61,7 +74,7 @@ const CompanyTable = () => {
   
   return (
     <div className="bg-white min-h-screen">
-        <Navbar />
+       {content}
     <div className="p-4 max-w-4xl mx-auto">
       <h2 className="text-xl font-bold mb-4">Company Packages Viewer</h2>
 

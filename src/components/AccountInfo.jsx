@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
+import UserNavbar from "./UserNavbar";
 import { useNavigate } from "react-router-dom";
 
 const AccountInfo = () => {
@@ -7,6 +8,17 @@ const AccountInfo = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const Message = localStorage.getItem("Message");
+    
+      let content;
+    
+      if (Message === "admin") {
+        content = <Navbar />;
+      }
+       else {
+        content = <UserNavbar />;
+      }
 
   useEffect(() => {
     const storedUserName = localStorage.getItem('user_name');
@@ -57,11 +69,11 @@ const AccountInfo = () => {
     );
   }
 
-  const { user_name, agent_name, calling_name } = userData.user_info;
+  const { user_name, agent_name, calling_name , role } = userData.user_info;
 
   return (
     <div className="bg-black min-h-screen">
-      <Navbar />
+    {content}
       <div className="flex  items-center justify-center bg-black px-4">
         <div className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
           <button
@@ -110,6 +122,18 @@ const AccountInfo = () => {
               id="callingname"
               type="text"
               value={calling_name}
+              disabled
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1" htmlFor="role">
+             Role
+            </label>
+            <input
+              id="role"
+              type="text"
+              value={role}
               disabled
               className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
             />
