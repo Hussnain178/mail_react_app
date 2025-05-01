@@ -64,21 +64,21 @@ const SentInfoTable = () => {
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr className="bg-gray-100 text-left">
-                <th className="py-2 px-4 border-b">ID</th>
+                {/* <th className="py-2 px-4 border-b">ID</th> */}
                 <th className="py-2 px-4 border-b">Sender Mail</th>
                 <th className="py-2 px-4 border-b">Agent User Name</th>
                 <th className="py-2 px-4 border-b">Business Name</th>
                 <th className="py-2 px-4 border-b">Business Email</th>
                 <th className="py-2 px-4 border-b">Mail Type</th>
                 <th className="py-2 px-4 border-b">Mail Sent At</th>
-                <th className="py-2 px-4 border-b">Action</th> {/* ✅ Step 5 */}
+                <th className="py-2 px-4 border-b">Action</th>
               </tr>
             </thead>
             <tbody>
               {sentInfo.length > 0 ? (
                 sentInfo.map((item, index) => (
                   <tr key={index} className="hover:bg-gray-50">
-                    <td className="py-2 px-4 border-b">{item._id}</td>
+                    {/* <td className="py-2 px-4 border-b">{item._id}</td> */}
                     <td className="py-2 px-4 border-b">{item.sender_mail}</td>
                     <td className="py-2 px-4 border-b">{item.agent_user_name}</td>
                     <td className="py-2 px-4 border-b">{item.business_name}</td>
@@ -88,7 +88,7 @@ const SentInfoTable = () => {
                     <td className="py-2 px-4 border-b">
                       <button
                         className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                        onClick={() => navigate("/detail", { state: item._id })} // ✅ Step 3
+                        onClick={() => navigate("/details", { state: item._id })} // ✅ Step 3
                       >
                         View
                       </button>

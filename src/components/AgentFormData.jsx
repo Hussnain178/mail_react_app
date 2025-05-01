@@ -82,6 +82,8 @@ const AgentForm = () => {
         headers: {
           'Content-Type': 'application/json',
           'csrf-token': csrf_token,
+          // "csrf-token": "546a640144f8e2a8506499795efe8815b93c1eba8be9a48d3f74d0efc64e81a2",
+
         },
         body: JSON.stringify(formData),
       });
@@ -202,7 +204,7 @@ const AgentForm = () => {
 
             {/* Spectrum Customer Type */}
             <div>
-              <label className="block text-sm font-medium mt-3 pb-2" htmlFor="sub_customer_type"> Spectrum Customer Type </label>
+              <label className="block text-sm font-medium mt-4 pb-2" htmlFor="sub_customer_type"> Spectrum Customer Type </label>
               <select
                 className={inputStyles}
                 id="sub_customer_type"
@@ -233,7 +235,7 @@ const AgentForm = () => {
 
             {/* Business Email */}
             <div>
-              <label className="block text-sm font-medium mt-3 " htmlFor="business_email">Business Email</label>
+              <label className="block text-sm font-medium mt-3" htmlFor="business_email">Business Email</label>
               <input
                 required
                 className={shortInputStyles}
@@ -248,7 +250,7 @@ const AgentForm = () => {
 
             {/* Street Address */}
             <div>
-              <label className="block text-sm font-medium mt-2" htmlFor="street_address">Street Address</label>
+              <label className="block text-sm font-medium mt-3" htmlFor="street_address">Street Address</label>
               <input
                 required
                 className={shortInputStyles}
@@ -456,16 +458,16 @@ const AgentForm = () => {
             </div>
             <br />
 
-            <div className="w-full mt-5">
-  <div className="flex justify-center">
-    <button
-      className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition"
-      type="submit"
-    >
-      Submit Form
-    </button>
-  </div>
+            {/* Centered Submit Button right after Manager Comments */}
+<div className="col-span-3 mt-6 flex justify-center">
+  <button
+    type="submit"
+    className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition"
+  >
+    Submit Form
+  </button>
 </div>
+
 
 
 
@@ -477,6 +479,3 @@ const AgentForm = () => {
     );
   }
 export default AgentForm;
-
-
-

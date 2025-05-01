@@ -40,7 +40,8 @@ function App() {
         <Route path='/edit-user' element={<PrivateRoute allowedRoles={["admin","agent"]}><EditUserInfo /></PrivateRoute>} />
         {/* <Route path='/useredit-user' element={<PrivateRoute allowedRoles={["agent"]}><UserEditUserinfo /></PrivateRoute>} /> */}
         <Route path='/logout' element={<PrivateRoute><LogoutButton /></PrivateRoute>} />
-        <Route path='/detail' element={<PrivateRoute allowedRoles={["admin","agent"]} >< SentDetailPage /></PrivateRoute>} />
+        <Route path='/details' element={<PrivateRoute allowedRoles={["admin","agent"]} ><SentDetailPage /></PrivateRoute>} />
+        
         
       </Routes>
   

@@ -10,6 +10,7 @@ const CompanyTable = () => {
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
   const [companyInfo, setCompanyInfo] = useState("");
+   const [senderMail, setSenderMail] = useState("");
 
 
   const Message = localStorage.getItem("Message");
@@ -54,7 +55,9 @@ const CompanyTable = () => {
         },
       });
       console.log(res.data);
-      setCompanyInfo(res.data.info);
+      setCompanyInfo(res.data.info.packages_info);
+      setSenderMail(res.data.info.sender_mail || "");
+
     } catch (err) {
       console.error("Error fetching company info:", err);
     }
@@ -91,6 +94,11 @@ const CompanyTable = () => {
           </option>)}
         )}
       </select>
+      {senderMail && (
+        <div className=" p-4 bg-white rounded shadow text-center text-gray-700">
+          <strong>Sender Email:</strong> {senderMail}
+        </div>
+      )}
 
       {/* Show nothing if no company selected */}
       {!selectedCompany && <p className="text-gray-500">Please select a company to view info.</p>}
