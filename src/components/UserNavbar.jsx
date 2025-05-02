@@ -18,7 +18,7 @@ export default function Navbar() {
   const UserName = localStorage.getItem("user_name"); // Retrieve the CSRF token from local storage
   const [isOpen, setIsOpen] = useState(false);
   const userName = localStorage.getItem("user_name");
-console.log("Navbar username:", userName); // ✅ Debug here too
+
 
 
 
@@ -28,7 +28,7 @@ console.log("Navbar username:", userName); // ✅ Debug here too
         {/* Brand name */}
         <div className="flex items-center">
           <Link to="/home">
-         <h1 className="text-white text-2xl font-bold">User Panel</h1>
+         <h1 className="text-white text-2xl font-bold">Agent Panel</h1>
           </Link>
         </div>
          <div className="flex items-center">

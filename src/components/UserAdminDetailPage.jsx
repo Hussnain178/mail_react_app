@@ -98,7 +98,7 @@ const UserAdminDetailPage = () => {
       <div className="space-y-3">
         {/* Dynamically show all key-value pairs from detailData */}
         {Object.entries(detailData)
-  .filter(([key]) => key !== "mail_html").filter(([key]) => key !== "admin_comments").filter(([key]) => key !== "_id")
+  .filter(([key]) => key !== "mail_html").filter(([key]) => key !== "admin_comments").filter(([key]) => key !== "_id").filter(([key]) => key !== "product_dict")
   .map(([key, value]) => (
     <div key={key}>
       <strong>{key.replace(/_/g, " ")}:</strong> {value?.toString()}
@@ -113,25 +113,32 @@ const UserAdminDetailPage = () => {
         <p className="text-gray-500">No data found for company: {selectedCompany}</p>
       ) : (
         <table className="min-w-full border border-gray-300 rounded-lg">
-          <thead className="bg-gray-100 text-gray-600 text-sm uppercase">
-            <tr>
-              {filteredEntries.map(([key]) => (
-                <th key={key} className="py-2 px-4 border-b border-gray-300 text-left">
-                  {key}
-                </th>
-              ))}
+        <thead className="bg-gray-100 text-gray-600 text-sm uppercase">
+          <tr>
+            <th className="py-2 px-4 border-b border-gray-300 text-left">Product</th>
+            <th className="py-2 px-4 border-b border-gray-300 text-left">Subscription</th>
+            <th className="py-2 px-4 border-b border-gray-300 text-left">Free Add-ons</th>
+            <th className="py-2 px-4 border-b border-gray-300 text-left">Add-ons</th>
+            <th className="py-2 px-4 border-b border-gray-300 text-left">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(productdict).map(([productName, productData]) => (
+            <tr key={productName} className="bg-white hover:bg-gray-50">
+              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productName}</td>
+              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productData.subscription}</td>
+              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
+                {productData.free_addons.length ? productData.free_addons.join(', ') : 'None'}
+              </td>
+              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
+                {productData.adds_on.length ? productData.adds_on.join(', ') : 'None'}
+              </td>
+              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">${productData.price}</td>
             </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-white hover:bg-gray-50">
-              {filteredEntries.map(([, value], index) => (
-                <td key={index} className="py-2 px-4 border-b border-gray-200 text-gray-700">
-                  {Array.isArray(value) ? value.join(', ') : value.toString()}
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
+      
       )}
 </div>
 

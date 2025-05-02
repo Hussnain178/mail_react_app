@@ -17,6 +17,9 @@ const AgentForm = () => {
     'w-full mt-2 p-3 border border-gray-300 rounded shadow outline-none focus:border-blue-500';
 
   const [date, setDate] = useState('');
+  const [resetTrigger, setResetTrigger] = useState(false);
+
+  
   // const [productDict, setProductDict] = useState({});
   // const [companyEmails, setCompanyEmails] = useState([]);
 
@@ -82,7 +85,7 @@ const AgentForm = () => {
         headers: {
           'Content-Type': 'application/json',
           'csrf-token': csrf_token,
-          // "csrf-token": "546a640144f8e2a8506499795efe8815b93c1eba8be9a48d3f74d0efc64e81a2",
+         
 
         },
         body: JSON.stringify(formData),
@@ -95,7 +98,7 @@ const AgentForm = () => {
         alert('Form submitted successfully!');
         setFormData({
           company_name: '',
-          product_dict: {},
+          product_dict: {"company_name": "", "type": "", "subscription": "", "free_addons": [], "paid_addons": [], "price": ""},
           mail_type: '',
           customer_type: '',
           sub_customer_type: '',
@@ -109,7 +112,7 @@ const AgentForm = () => {
           last_name: '',
           phone_number: '',
           additional_number: '',
-          current_lec: '',
+          current_lec:'',
           cell_phone: '',
           passkey: '',
           tax_id_or_ssn: '',
@@ -125,7 +128,9 @@ const AgentForm = () => {
       console.error('Error:', error);
       alert('There was an error submitting the form.');
     }
-  };
+
+    setResetTrigger(prev => !prev); // Toggle the trigger to re-render child
+  }
 
     return (
       <div className='bg-black min-h-screen'>
@@ -138,23 +143,28 @@ const AgentForm = () => {
           <div>
   
           <ServicesPlan
-  onChange={(updatedProductDict) => {
-    // Pick the first selected plan as product_dict object
-    const selectedPlan = updatedProductDict[0] || {
-      company_name: '',
-      type: '',
-      subscription: '',
-      free_addons: [],
-      paid_addons: [],
-      price: 0,
-    };
-
+          resetTrigger={resetTrigger}
+  onChange={(updatedProductDictArray) => {
+    const dict = {};
+  
+    updatedProductDictArray.forEach((item) => {
+      dict[item.type] = {
+        subscription: item.subscription,
+        free_addons: item.free_addons,
+        adds_on: item.adds_on,
+        price: item.price,
+      };
+    });
+  
+    const companyName = updatedProductDictArray[0]?.company_name || '';
+  
     setFormData((prev) => ({
       ...prev,
-      company_name: selectedPlan.company_name,
-      product_dict: selectedPlan, // <-- this ensures product_dict is an object
+      company_name: companyName,
+      product_dict: dict, // 👈 now an object with type-wise keys
     }));
   }}
+  
 />
 
 
@@ -416,7 +426,7 @@ const AgentForm = () => {
             </div>
             {/* tax_id/ ssn */}
             <div>
-              <label className="block text-sm font-medium mt-2" htmlFor=" tax_id_or_ssn"> Tax_id_or_SSN</label>
+              <label className="block text-sm font-medium mt-2" htmlFor=" tax_id_or_ssn"> Tax id or SSN</label>
               <input
                 required
                 className={shortInputStyles}
