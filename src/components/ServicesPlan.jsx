@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 function ServicesPlan({ onChange, resetTrigger}) {
@@ -10,8 +10,11 @@ function ServicesPlan({ onChange, resetTrigger}) {
   const [selectedAddons, setSelectedAddons] = useState({});
 
   const csrf_token = localStorage.getItem("csrf_token");
+  const hasFetchedCompanies = useRef(false);
 
   useEffect(() => {
+    if (hasFetchedCompanies.current) return; // prevent duplicate call
+    hasFetchedCompanies.current = true;
     axios.get("http://104.236.100.170/api/get_companies", {
       headers: { "csrf-token": csrf_token },
     }).then((res) => {

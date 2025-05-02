@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserNavbar from "./UserNavbar";
 import axios from "axios";
@@ -13,7 +13,7 @@ const UserAdminDetailPage = () => {
   const [productdict, setproductdict] = useState([]);
   const [loading, setLoading] = useState(true);
    // string array
-   
+     const hasFetcheddetail = useRef(false);
 
 
   const csrf_token = localStorage.getItem("csrf_token");
@@ -30,6 +30,8 @@ const UserAdminDetailPage = () => {
 
 
   const fetchDetailData = async (rowPayload) => {
+    if (hasFetcheddetail.current) return; // prevent duplicate call
+    hasFetcheddetail.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_mail_info",

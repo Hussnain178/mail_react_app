@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import UserNavbar from "./UserNavbar"
@@ -6,6 +6,7 @@ import UserNavbar from "./UserNavbar"
 const CompanyTable = () => {
     const csrf_token = localStorage.getItem("csrf_token");
   
+    const hasFetchedCompanies = useRef(false);
 
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
@@ -26,6 +27,8 @@ const CompanyTable = () => {
 
   // Fetch all companies for dropdown
   const fetchCompanies = async () => {
+    if (hasFetchedCompanies.current) return; // prevent duplicate call
+    hasFetchedCompanies.current = true;
     try {
       const res = await axios.get("http://104.236.100.170/api/get_companies",   {
         headers: {
@@ -54,7 +57,7 @@ const CompanyTable = () => {
           "csrf-token": csrf_token,
         },
       });
-      console.log(res.data);
+      
       setCompanyInfo(res.data.info.packages_info);
       setSenderMail(res.data.info.sender_mail || "");
 

@@ -6,7 +6,7 @@ import UserAdminDetailPage from './UserAdminDetailPage';
 export default function SentDetailPage() {
 
     const Message = localStorage.getItem("Message");
-    console.log("Message", Message);
+    
     
       let content;
     

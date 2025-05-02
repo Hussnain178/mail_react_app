@@ -38,7 +38,7 @@ useEffect(() => {
       });
 
       const data = await response.json();
-      console.log("Login response:", data);
+     
 
       if (response.ok) {
         localStorage.setItem("csrf_token", data.csrf_token);

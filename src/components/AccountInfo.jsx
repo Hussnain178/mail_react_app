@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from './Navbar';
 import UserNavbar from "./UserNavbar";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ const AccountInfo = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  const hasFetchedaccountinfo = useRef(false);
   const Message = localStorage.getItem("Message");
     
       let content;
@@ -22,6 +22,8 @@ const AccountInfo = () => {
 
   useEffect(() => {
     const storedUserName = localStorage.getItem('user_name');
+    if (hasFetchedaccountinfo.current) return; // prevent duplicate call
+    hasFetchedaccountinfo.current = true;
 
     if (!storedUserName) {
       console.warn("No user found. Redirecting to login...");

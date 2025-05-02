@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // ✅ Step 3
 
@@ -10,9 +11,12 @@ const SentInfoTable = () => {
 
   const csrf_token = localStorage.getItem("csrf_token");
   const navigate = useNavigate(); // ✅ Step 3
+    const hasFetchedinfo = useRef(false);
 
   const fetchSentInfo = async (page) => {
     setLoading(true);
+    if (hasFetchedinfo.current) return; // prevent duplicate call
+    hasFetchedinfo.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_sent_info",

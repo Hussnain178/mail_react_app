@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 
@@ -48,9 +48,14 @@ export default function CompanyDataform() {
   
 
   const csrf_token = localStorage.getItem("csrf_token");
+  const hasFetchedCompanies = useRef(false);
+  const hasFetchedCategory = useRef(false);
+  const hasFetchedSubscription = useRef(false);
 
   // 📦 Backend se users fetch karne ka function
   const fetchcompanies = async () => {
+    if (hasFetchedCompanies.current) return; // prevent duplicate call
+    hasFetchedCompanies.current = true;
     try {
       const response = await axios.get(
         "http://104.236.100.170/api/get_companies",
@@ -69,6 +74,8 @@ export default function CompanyDataform() {
     }
   };
   const fetchcategories = async () => {
+    if (hasFetchedCategory.current) return; // prevent duplicate call
+    hasFetchedCategory.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_categories",
@@ -91,6 +98,8 @@ export default function CompanyDataform() {
     }
   };
   const fetchcategories2 = async () => {
+    if (hasFetchedCategory.current) return; // prevent duplicate call
+    hasFetchedCategory.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_categories",
@@ -113,6 +122,8 @@ export default function CompanyDataform() {
     }
   };
   const fetchcategories3 = async () => {
+    if (hasFetchedCategory.current) return; // prevent duplicate call
+    hasFetchedCategory.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_categories",
@@ -135,6 +146,8 @@ export default function CompanyDataform() {
     }
   };
   const fetchcategories4 = async () => {
+    if (hasFetchedCategory.current) return; // prevent duplicate call
+    hasFetchedCategory.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_categories",
@@ -157,6 +170,8 @@ export default function CompanyDataform() {
     }
   };
   const fetchsubscription = async () => {
+    if (hasFetchedSubscription.current) return; // prevent duplicate call
+    hasFetchedSubscription.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_subscriptions",
@@ -179,6 +194,8 @@ export default function CompanyDataform() {
     }
   };
   const fetchsubscription2 = async () => {
+    if (hasFetchedSubscription.current) return; // prevent duplicate call
+    hasFetchedSubscription.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_subscriptions",
