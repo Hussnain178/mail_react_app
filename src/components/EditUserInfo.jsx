@@ -70,7 +70,7 @@ const EditUserInfo = () => {
   return (
     <div className="bg-black min-h-screen">
       {content}
-      <div className="flex  items-center justify-center bg-black px-4">
+      <div className="flex  items-center justify-center  bg-blue-50 px-4">
         <form
           onSubmit={handleSubmit}
           className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20"

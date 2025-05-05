@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // ✅ Step 3
 
@@ -11,12 +11,12 @@ const SentInfoTable = () => {
 
   const csrf_token = localStorage.getItem("csrf_token");
   const navigate = useNavigate(); // ✅ Step 3
-    const hasFetchedinfo = useRef(false);
+    // const hasFetchedinfo = useRef(false);
 
   const fetchSentInfo = async (page) => {
     setLoading(true);
-    if (hasFetchedinfo.current) return; // prevent duplicate call
-    hasFetchedinfo.current = true;
+    // if (hasFetchedinfo.current) return; // prevent duplicate call
+    // hasFetchedinfo.current = true;
     try {
       const response = await axios.post(
         "http://104.236.100.170/api/get_sent_info",
@@ -58,7 +58,8 @@ const SentInfoTable = () => {
   };
 
   return (
-    <div className="p-6">
+    // <div className="" >
+    <div className="p-6 w-full bg-blue-50">
       <h2 className="text-2xl font-bold mb-4">Sent Info Table</h2>
 
       {loading ? (
@@ -130,6 +131,7 @@ const SentInfoTable = () => {
         </button>
       </div>
     </div>
+    // </div>
   );
 };
 

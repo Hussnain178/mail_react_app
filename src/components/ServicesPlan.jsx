@@ -224,7 +224,7 @@ function ServicesPlan({ onChange, resetTrigger}) {
                 <option value="">-- Select Subscription --</option>
                 {subs.map(({ subscriptionName, label }) => (
                   <option key={subscriptionName} value={subscriptionName}>
-                    {`${subscriptionName} - ${label}`}
+                    {`${subscriptionName}`}
                   </option>
                 ))}
               </select>
@@ -301,11 +301,11 @@ function ServicesPlan({ onChange, resetTrigger}) {
           </div>
           {/* Grand total at bottom */}
           <div className="text-right font-bold text-lg text-black mt-6 space-y-1">
-  <div>Grand Total for Add-ons: ${getTotalPrice().toFixed(2)}</div>
+  {/* <div>Grand Total for Add-ons: ${getTotalPrice().toFixed(2)}</div>
   <div>
   Subscription Charges: ${getSubscriptionCharge().toFixed(2)}
 
-  </div>
+  </div> */}
   <div className="text-blue-900 text-xl font-bold">
     Combined Grand Total: $
     {

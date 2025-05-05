@@ -76,7 +76,7 @@ const AccountInfo = () => {
   return (
     <div className="bg-black min-h-screen">
     {content}
-      <div className="flex  items-center justify-center bg-black px-4">
+      <div className="flex  bg-blue-50  items-center justify-center px-4">
         <div className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
           <button
             type="button"

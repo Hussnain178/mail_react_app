@@ -307,7 +307,6 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor="zip_code">Zip Code</label>
               <input
-                required
                 className={shortInputStyles}
                 type="number"
                 id="zip_code"
@@ -367,7 +366,6 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor="additional_number">Additional Number</label>
               <input
-                required
                 className={shortInputStyles}
                 type="tel"
                 id="additional_number"
@@ -399,7 +397,6 @@ const AgentForm = () => {
              <div>
               <label className="block text-sm font-medium mt-2" htmlFor="cell_phone">Cell Phone</label>
               <input
-                required
                 className={shortInputStyles}
                 type="tel"
                 id="cell_phone"
@@ -414,7 +411,6 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor="passkey">Passkey</label>
               <input
-                required
                 className={shortInputStyles}
                 type="number"
                 id="passkey"
@@ -428,7 +424,6 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor=" tax_id_or_ssn"> Tax id or SSN</label>
               <input
-                required
                 className={shortInputStyles}
                 type="number"
                 id="tax_id_or_ssn"
@@ -443,7 +438,6 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor="special_notes">Special Notes</label>
               <textarea
-                required
                 className={textareaStyles}
                 id="special_notes"
                 name="special_notes"
@@ -457,7 +451,6 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor="manager_comments">Manager Comments</label>
               <textarea
-                required
                 className={textareaStyles}
                 id="manager_comments"
                 name="manager_comments"

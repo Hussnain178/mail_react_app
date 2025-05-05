@@ -79,9 +79,9 @@ const CompanyTable = () => {
   // const { adds_on = {}, ...packages } = companyInfo || {};
   
   return (
-    <div className="bg-white min-h-screen">
+    <div className=" bg-blue-50 min-h-screen">
        {content}
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className="p-4 max-w-4xl bg-white mx-auto">
       <h2 className="text-xl font-bold mb-4">Company Packages Viewer</h2>
 
       {/* Company Dropdown */}
@@ -98,7 +98,7 @@ const CompanyTable = () => {
         )}
       </select>
       {senderMail && (
-        <div className=" p-4 bg-white rounded shadow text-center text-gray-700">
+        <div className=" p-4  bg-blue-50 rounded shadow text-center text-gray-700">
           <strong>Sender Email:</strong> {senderMail}
         </div>
       )}

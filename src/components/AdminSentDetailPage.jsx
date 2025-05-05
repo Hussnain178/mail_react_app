@@ -111,7 +111,7 @@ const hasFetcheddetail = useRef(false);
 
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className=" bg-blue-50 min-h-screen">
       <Navbar />
     <div className="p-6 max-w-3xl mx-auto bg-white shadow rounded">
  

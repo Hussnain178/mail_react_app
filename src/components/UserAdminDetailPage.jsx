@@ -84,7 +84,7 @@ const UserAdminDetailPage = () => {
 
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-blue-50 min-h-screen">
       <UserNavbar />
     <div className="p-6 max-w-3xl mx-auto bg-white shadow rounded">
       <h2 className=" relative text-2xl font-bold mb-4 text-center">Sent Info Detail 
@@ -125,7 +125,7 @@ const UserAdminDetailPage = () => {
           </tr>
         </thead>
         <tbody>
-          {Object.entries(productdict).map(([productName, productData]) => (
+        {Object.entries(productdict).map(([productName, productData]) => (
             <tr key={productName} className="bg-white hover:bg-gray-50">
               <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productName}</td>
               <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productData.subscription}</td>
@@ -138,6 +138,7 @@ const UserAdminDetailPage = () => {
               <td className="py-2 px-4 border-b border-gray-200 text-gray-700">${productData.price}</td>
             </tr>
           ))}
+
         </tbody>
       </table>
       

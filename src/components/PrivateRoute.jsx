@@ -8,6 +8,8 @@ const PrivateRoute = ({ children, allowedRoles = [] }) => {
   const navigate = useNavigate();
   const debounceTimer = useRef(null);
 
+  //  const hasVerify = useRef(false);
+
   const verifyToken = async () => {
     const token = localStorage.getItem("csrf_token");
     if (!token) {
@@ -15,6 +17,8 @@ const PrivateRoute = ({ children, allowedRoles = [] }) => {
       return;
     }
 
+    //     if (hasVerify.current) return; // prevent duplicate call
+    // hasVerify.current = true;
     try {
       const response = await axios.get("http://104.236.100.170/api/verify_token", {
         headers: {
