@@ -85,7 +85,7 @@ const DeleteUser = () => {
   
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className=" min-h-screen">
       <Navbar />
       <div className="flex mt-30 items-center justify-center bg-blue-50 px-4">
         <form

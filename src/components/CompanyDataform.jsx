@@ -399,7 +399,7 @@ export default function CompanyDataform() {
     return (
       <div className="bg-white min-h-screen">
         <Navbar />
-      <div className="max-w-3xl mx-auto p-4  bg-blue-50 space-y-8">
+      <div className="max-w-3xl mx-auto p-4 mt-10 bg-blue-50 space-y-8">
       
         {/* -------------------------- Add Company -------------------------- */}
         <div className="bg-white shadow rounded p-4">

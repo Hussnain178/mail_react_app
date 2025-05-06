@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import UserNavbar from "./UserNavbar"
@@ -6,7 +6,7 @@ import UserNavbar from "./UserNavbar"
 const CompanyTable = () => {
     const csrf_token = localStorage.getItem("csrf_token");
   
-    const hasFetchedCompanies = useRef(false);
+    // const hasFetchedCompanies = useRef(false);
 
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
@@ -27,8 +27,8 @@ const CompanyTable = () => {
 
   // Fetch all companies for dropdown
   const fetchCompanies = async () => {
-    if (hasFetchedCompanies.current) return; // prevent duplicate call
-    hasFetchedCompanies.current = true;
+    // if (hasFetchedCompanies.current) return; // prevent duplicate call
+    // hasFetchedCompanies.current = true;
     try {
       const res = await axios.get("http://104.236.100.170/api/get_companies",   {
         headers: {
@@ -81,13 +81,14 @@ const CompanyTable = () => {
   return (
     <div className=" bg-blue-50 min-h-screen">
        {content}
-    <div className="p-4 max-w-4xl bg-white mx-auto">
+    <div className="mt-10 p-4 max-w-4xl bg-white mx-auto">
       <h2 className="text-xl font-bold mb-4">Company Packages Viewer</h2>
 
       {/* Company Dropdown */}
       <select
         className="border p-2 rounded mb-6 w-full"
         value={selectedCompany}
+        onClick={() => fetchCompanies()}
         onChange={(e) => setSelectedCompany(e.target.value)}
       >
         <option value="">Select a company</option>

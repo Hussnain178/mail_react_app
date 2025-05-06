@@ -38,18 +38,18 @@ useEffect(() => {
       });
 
       const data = await response.json();
+      const status = response.status;
      
 
-      if (response.ok) {
+      if (status === 200) {
         localStorage.setItem("csrf_token", data.csrf_token);
         localStorage.setItem("user_name", user_name);
         localStorage.setItem("Message", data.Message); 
-       
-    
-
-         navigate("/home");
+        navigate("/home");
+      } else if (status === 400) {
+        alert(data.Message);
       } else {
-        setError(data.message || "Login failed");
+        setMessage({ type: 'error', text: result.message || "Something went wrong." });
       }
     } catch (err) {
       console.error(err);

@@ -292,7 +292,7 @@ const AgentForm = () => {
             <div>
               <label className="block text-sm font-medium mt-2" htmlFor="state">State</label>
               <input
-                required
+                // required
                 className={shortInputStyles}
                 type="text"
                 id="state"

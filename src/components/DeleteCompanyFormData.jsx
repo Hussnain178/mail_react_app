@@ -537,7 +537,7 @@ export default function CompanyDataform() {
     return (
     <div className="bg-white min-h-screen">
         <Navbar />
-      <div className="max-w-3xl mx-auto  bg-blue-50 p-4 space-y-8">
+      <div className="max-w-3xl mx-auto mt-10 bg-blue-50 p-4 space-y-8">
       
         {/* -------------------------- Delete Company -------------------------- */}
         <div className="bg-white shadow rounded p-4">
