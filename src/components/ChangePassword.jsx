@@ -77,9 +77,9 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className=" min-h-screen">
+    <div className="bg-blue-50 min-h-screen">
       {content}
-      <div className="flex items-center justify-center  bg-blue-50 px-4">
+      <div className="flex items-center justify-center   px-4">
         <form
           onSubmit={handleChangePassword}
           className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20"

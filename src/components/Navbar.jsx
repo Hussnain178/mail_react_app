@@ -48,15 +48,16 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/superadmin-changepassword" className="text-white hover:text-gray-300">
-                Password
+              <Link to="/staff-directory" className="text-white hover:text-gray-300">
+                Staff Directory
               </Link>
             </li>
             <li>
-              <Link to="/Users" className="text-white hover:text-gray-300">
-                Users
+              <Link to="/staff-changepassword" className="text-white hover:text-gray-300">
+              Change Staff Password
               </Link>
             </li>
+           
             </ul>
           </div>
 

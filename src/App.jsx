@@ -42,8 +42,8 @@ function App() {
         {/* <Route path='/useredit-user' element={<PrivateRoute allowedRoles={["agent"]}><UserEditUserinfo /></PrivateRoute>} /> */}
         <Route path='/logout' element={<PrivateRoute><LogoutButton /></PrivateRoute>} />
         <Route path='/details' element={<PrivateRoute allowedRoles={["admin","agent"]} ><SentDetailPage /></PrivateRoute>} />
-        <Route path='/superadmin-changepassword' element={<PrivateRoute allowedRoles={["admin"]} ><SuperAdminPassword /></PrivateRoute>} />
-        <Route path='/Users' element={<PrivateRoute allowedRoles={["admin"]} ><ShowUserTable /></PrivateRoute>} />
+        <Route path='/staff-changepassword' element={<PrivateRoute allowedRoles={["admin"]} ><SuperAdminPassword /></PrivateRoute>} />
+        <Route path='/staff-directory' element={<PrivateRoute allowedRoles={["admin"]} ><ShowUserTable /></PrivateRoute>} />
         
         
       </Routes>

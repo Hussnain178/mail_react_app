@@ -7,18 +7,18 @@ const PrivateRoute = ({ children, allowedRoles = [] }) => {
   const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
   const debounceTimer = useRef(null);
-
-  //  const hasVerify = useRef(false);
+  const hasHandledInvalidToken = useRef(false); // ✅ to prevent double alert + redirect
 
   const verifyToken = async () => {
     const token = localStorage.getItem("csrf_token");
     if (!token) {
-      navigate("/login");
+      if (!hasHandledInvalidToken.current) {
+        hasHandledInvalidToken.current = true;
+        navigate("/login");
+      }
       return;
     }
 
-    //     if (hasVerify.current) return; // prevent duplicate call
-    // hasVerify.current = true;
     try {
       const response = await axios.get("http://104.236.100.170/api/verify_token", {
         headers: {
@@ -31,9 +31,12 @@ const PrivateRoute = ({ children, allowedRoles = [] }) => {
       }
     } catch (error) {
       if (error.response?.status === 401) {
-        localStorage.removeItem("csrf_token");
-        alert("Session expired. Please log in again.");
-        navigate("/login");
+        if (!hasHandledInvalidToken.current) {
+          hasHandledInvalidToken.current = true;
+          localStorage.removeItem("csrf_token");
+          alert("Session expired. Please log in again.");
+          navigate("/login");
+        }
       } else {
         console.error("Token check failed:", error.message);
       }
@@ -57,7 +60,6 @@ const PrivateRoute = ({ children, allowedRoles = [] }) => {
 
     return () => {
       window.removeEventListener("click", handleUserActivity);
-
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }
@@ -65,8 +67,6 @@ const PrivateRoute = ({ children, allowedRoles = [] }) => {
   }, [navigate]);
 
   const userRole = (localStorage.getItem("Message") || "").toLowerCase();
- // example: "admin" or "agent"
- 
 
   if (isVerified && !allowedRoles.includes(userRole)) {
     return (

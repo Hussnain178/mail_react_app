@@ -74,9 +74,9 @@ const AccountInfo = () => {
   const { user_name, agent_name, calling_name , role } = userData.user_info;
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-blue-50 min-h-screen">
     {content}
-      <div className="flex  bg-blue-50  items-center justify-center px-4">
+      <div className="flex    items-center justify-center px-4">
         <div className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
           <button
             type="button"

@@ -32,7 +32,7 @@ const SuperAdminPassword = () => {
       setUsers(filteredUsers);
     } catch (error) {
       console.error('Failed to fetch users:', error);
-      alert('User list load nahi ho saki');
+      alert('User List cannot load successfully');
     }
   };
 

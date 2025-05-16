@@ -75,10 +75,10 @@ const CreateUser = () => {
   };
     
   return (
-    <div className=" min-h-screen">
+    <div className=" bg-blue-50 min-h-screen">
       <Navbar />
 
-      <div className="flex items-center justify-center  bg-blue-50 px-4">
+      <div className="flex items-center justify-center  px-4">
         <form onSubmit={handleSubmit} className="relative bg-white p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
           {/* Cross Button that redirects */}
           <button
