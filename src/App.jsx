@@ -7,10 +7,9 @@ import ChangePasssword from './components/ChangePassword';
 import AccountInfo from './components/AccountInfo';
 // import UserAccountinfo from './components/UserAccountinfo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import UserPanel from './components/UserPanel';
 // import UserChangepasssword from './components/UserChangepassword';
 import EditUserInfo from './components/EditUserInfo';
-// import UserEditUserinfo from './components/UserEditinfo';
+
 import LogoutButton from './components/logoutButton';
 import PrivateRoute from "./components/PrivateRoute";
 import CompanyDataform from './components/CompanyDataform';
@@ -18,6 +17,8 @@ import CompanyTable from './components/CompanyTable';
 import DeleteCompanyFormData from './components/DeleteCompanyFormData';
 import SentDetailPage from './components/SentDetailPage';
 import AgentFormData from './components/AgentFormData';
+import SuperAdminPassword from './components/SuperAdminPassword';
+import ShowUserTable from './components/ShowUserTable';
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
         {/* <Route path='/useredit-user' element={<PrivateRoute allowedRoles={["agent"]}><UserEditUserinfo /></PrivateRoute>} /> */}
         <Route path='/logout' element={<PrivateRoute><LogoutButton /></PrivateRoute>} />
         <Route path='/details' element={<PrivateRoute allowedRoles={["admin","agent"]} ><SentDetailPage /></PrivateRoute>} />
+        <Route path='/superadmin-changepassword' element={<PrivateRoute allowedRoles={["admin"]} ><SuperAdminPassword /></PrivateRoute>} />
+        <Route path='/Users' element={<PrivateRoute allowedRoles={["admin"]} ><ShowUserTable /></PrivateRoute>} />
         
         
       </Routes>

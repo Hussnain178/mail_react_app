@@ -86,7 +86,7 @@ const UserAdminDetailPage = () => {
   return (
     <div className="bg-blue-50 min-h-screen">
       <UserNavbar />
-    <div className="p-6 max-w-3xl mx-auto bg-white shadow rounded">
+    <div className="p-6 m-10 max-w-3xl mx-auto bg-white shadow rounded">
       <h2 className=" relative text-2xl font-bold mb-4 text-center">Sent Info Detail 
       <button
             type="button"
@@ -146,20 +146,24 @@ const UserAdminDetailPage = () => {
 </div>
 
      
+{/* ✅ Updated Comment Section Here */}
 <div className="w-full mt-6 p-4 border border-gray-300 rounded-lg">
-  <h2 className="text-xl font-semibold mb-4 text-gray-700">Comments</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Comments</h2>
 
-  <ul className="space-y-2 mb-4">
-        {detailData1.map((comment, index) => { return (
-          <li key={index} className="p-2 bg-gray-100 rounded">
-            {comment}
-          </li>)}
-        )}
-      </ul>
-     
-     
-      
-    </div>
+          <ul className="space-y-2 mb-4">
+            {detailData1.map((commentObj, index) => (
+              <li
+                key={index}
+                className="p-2 bg-gray-50 border border-gray-200 rounded text-gray-800"
+              >
+                <div><strong>Comment:</strong> <pre>{commentObj.comment} </pre></div>
+                <div className="text-sm text-gray-500">
+                  <strong>Added at:</strong>{" "}
+                  {commentObj.comment_added_at || "N/A"}
+                </div>
+              </li>
+            ))}
+          </ul>
     <div className="mt-6 text-center">
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -170,6 +174,7 @@ const UserAdminDetailPage = () => {
       </div>
     </div>
     </div>
+    </div>  
 
   );
 };

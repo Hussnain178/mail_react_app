@@ -47,6 +47,16 @@ export default function Navbar() {
                 Delete Package
               </Link>
             </li>
+            <li>
+              <Link to="/superadmin-changepassword" className="text-white hover:text-gray-300">
+                Password
+              </Link>
+            </li>
+            <li>
+              <Link to="/Users" className="text-white hover:text-gray-300">
+                Users
+              </Link>
+            </li>
             </ul>
           </div>
 

@@ -58,9 +58,9 @@ const SentInfoTable = () => {
   };
 
   return (
-    // <div className="" >
-    <div className="p-6 w-full bg-blue-50">
-      <h2 className="text-2xl font-bold mb-4">Sent Info Table</h2>
+    <div className="bg-blue-50">
+    <div className="p-6 w-full bg-white">
+      <h2 className="text-2xl font-bold mb-4 ">Sent Info Table</h2>
 
       {loading ? (
         <div>Loading...</div>
@@ -131,7 +131,7 @@ const SentInfoTable = () => {
         </button>
       </div>
     </div>
-    // </div>
+    </div>
   );
 };
 
