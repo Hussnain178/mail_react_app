@@ -44,7 +44,7 @@ const ShowUserTable = () => {
           <Navbar />
     <div className="p-6 max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-md mt-10">
     <h1 className="text-2xl font-bold mb-4">Users List</h1>
-  
+  {/* heye */}
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto bg-white rounded-lg overflow-hidden">
         <thead className="bg-gray-100 text-black text-sm uppercase tracking-wider">
