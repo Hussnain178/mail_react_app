@@ -23,15 +23,15 @@ export default function Navbar() {
 
   return (
     <nav className="border-b bg-black">
-      <div className="mx-auto flex h-16 max-w-7xl sticky-top items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex flex-nowrap h-16 max-w-7xl sticky-top items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand name */}
         <div className="flex items-center">
           <Link to="/home">
-         <h1 className="text-white text-2xl font-bold">Admin Panel</h1>
+         <h1 className="text-white text-xl font-bold">Admin Panel</h1>
           </Link>
         </div>
         <div className="flex items-center">
-          <ul className="flex space-x-12">
+          <ul className="flex space-x-6">
             <li>
               <Link to="/show-company" className="text-white hover:text-gray-300">
                 Show Company

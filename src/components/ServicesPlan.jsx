@@ -56,7 +56,7 @@ function ServicesPlan({ onChange, resetTrigger }) {
     const categoryCount = Object.keys(selectedOptions).length;
     let priceKey = "Single";
     if (categoryCount === 2) priceKey = "Double";
-    else if (categoryCount === 3) priceKey = "Triple";
+    else if (categoryCount >= 3) priceKey = "Triple";
 
     const subscriptionPrice = parseFloat(subData[priceKey] || 0);
     const paidAddonsTotal = paidAddons.reduce(
@@ -64,46 +64,56 @@ function ServicesPlan({ onChange, resetTrigger }) {
       0
     );
 
-    return (subscriptionPrice + paidAddonsTotal) * quantity;
+    return (subscriptionPrice * quantity) + paidAddonsTotal ;
+    // return (subscriptionPrice + paidAddonsTotal) * quantity;
   };
 
   const updateProductDict = (newSelectedOptions, newSelectedAddons) => {
-    const selectedCategories = Object.keys(newSelectedOptions);
+  const selectedCategories = Object.keys(newSelectedOptions);
 
-    const productDict = selectedCategories.map((category) => {
-      const selectedSubscription = newSelectedOptions[category];
-      const categoryInfo = categoryData[category] || {};
-      const subscriptionInfo = categoryInfo[selectedSubscription] || {};
+  const productDict = selectedCategories.map((category) => {
+    const selectedSubscription = newSelectedOptions[category];
+    const categoryInfo = categoryData[category] || {};
+    const subscriptionInfo = categoryInfo[selectedSubscription] || {};
 
-      const freeAddons = newSelectedAddons[category]?.free_addons || [];
-      const paidAddons = newSelectedAddons[category]?.paid_addons || [];
+    const freeAddons = newSelectedAddons[category]?.free_addons || [];
 
-      const addsOnPrices = categoryInfo.adds_on || {};
-      const paidAddonTotal = paidAddons.reduce((sum, addon) => {
-        return sum + parseFloat(addsOnPrices[addon] || 0);
-      }, 0);
+    const addsOnPrices = categoryInfo.adds_on || {};
+    const paidAddonsRaw = newSelectedAddons[category]?.paid_addons || [];
+    const paidAddons = paidAddonsRaw.map((addon) => ({
+      name: addon,
+      price: parseFloat(addsOnPrices[addon] || 0),
+    }));
 
-      const currentCategoryCount = selectedCategories.length;
-      let priceKey = "Single";
-      if (currentCategoryCount === 2) priceKey = "Double";
-      else if (currentCategoryCount === 3) priceKey = "Triple";
+    const paidAddonTotal = paidAddons.reduce((sum, addon) => {
+      return sum + addon.price;
+    }, 0);
 
-      const basePrice = parseFloat(subscriptionInfo[priceKey] || 0);
-      const quantity = selectedQuantities[category] || 1;
+    const currentCategoryCount = selectedCategories.length;
+    let priceKey = "Single";
+    if (currentCategoryCount === 2) priceKey = "Double";
+    else if (currentCategoryCount >= 3) priceKey = "Triple";
 
-      return {
-        company_name: selectedCompany,
-        type: category,
-        subscription: selectedSubscription,
-        free_addons: freeAddons,
-        adds_on: paidAddons,
-        quantity,
-        price: (basePrice + paidAddonTotal) * quantity,
-      };
-    });
+    const basePrice = parseFloat(subscriptionInfo[priceKey] || 0);
+    const quantity = selectedQuantities[category] || 1;
 
-    onChange(productDict);
-  };
+    return {
+      company_name: selectedCompany,
+      type: category,
+      subscription: selectedSubscription,
+      free_addons: freeAddons,
+      adds_on: paidAddons,
+      quantity,
+      sub_price: basePrice,
+      adds_on_price: paidAddonTotal,
+      price: (basePrice * quantity) + paidAddonTotal,
+    };
+  });
+
+  onChange(productDict);
+};
+
+
 
   const handleAddonChange = (e, category, addonType) => {
     const { value, checked } = e.target;
@@ -162,35 +172,68 @@ function ServicesPlan({ onChange, resetTrigger }) {
     return { free, paid };
   };
 
+  // const getTotalPrice = () => {
+  //   return Object.keys(selectedAddons).reduce((total, category) => {
+  //     const selected = selectedAddons[category]?.paid_addons || [];
+  //     const allPrices = categoryData[category]?.adds_on || {};
+  //     const quantity = selectedQuantities[category] || 1;
+  //     const categoryTotal =
+  //       selected.reduce((sum, addon) => sum + parseFloat(allPrices[addon] || 0), 0) *
+  //       quantity;
+  //     return total + categoryTotal;
+  //   }, 0);
+  // };
+
+  // const getSubscriptionCharge = () => {
+  //   const selectedCategories = Object.keys(selectedOptions);
+  //   const categoryCount = selectedCategories.length;
+
+  //   return selectedCategories.reduce((sum, category) => {
+  //     const subscription = selectedOptions[category];
+  //     const subData = categoryData[category]?.[subscription];
+  //     if (!subData) return sum;
+
+  //     let priceKey = "Single";
+  //     if (categoryCount === 2) priceKey = "Double";
+  //     else if (categoryCount === 3) priceKey = "Triple";
+
+  //     const quantity = selectedQuantities[category] || 1;
+  //     return sum + parseFloat(subData[priceKey] || 0) * quantity;
+  //   }, 0);
+  // };
+
   const getTotalPrice = () => {
-    return Object.keys(selectedAddons).reduce((total, category) => {
-      const selected = selectedAddons[category]?.paid_addons || [];
-      const allPrices = categoryData[category]?.adds_on || {};
-      const quantity = selectedQuantities[category] || 1;
-      const categoryTotal =
-        selected.reduce((sum, addon) => sum + parseFloat(allPrices[addon] || 0), 0) *
-        quantity;
-      return total + categoryTotal;
-    }, 0);
-  };
+  return Object.keys(selectedAddons).reduce((total, category) => {
+    const selected = selectedAddons[category]?.paid_addons || [];
+    const allPrices = categoryData[category]?.adds_on || {};
 
-  const getSubscriptionCharge = () => {
-    const selectedCategories = Object.keys(selectedOptions);
-    const categoryCount = selectedCategories.length;
+    // ❌ Quantity hata diya kyun ke addon per multiply nahi karna
+    const categoryTotal = selected.reduce(
+      (sum, addon) => sum + parseFloat(allPrices[addon] || 0),
+      0
+    );
 
-    return selectedCategories.reduce((sum, category) => {
-      const subscription = selectedOptions[category];
-      const subData = categoryData[category]?.[subscription];
-      if (!subData) return sum;
+    return total + categoryTotal;
+  }, 0);
+};
+const getSubscriptionCharge = () => {
+  const selectedCategories = Object.keys(selectedOptions);
+  const categoryCount = selectedCategories.length;
 
-      let priceKey = "Single";
-      if (categoryCount === 2) priceKey = "Double";
-      else if (categoryCount === 3) priceKey = "Triple";
+  return selectedCategories.reduce((sum, category) => {
+    const subscription = selectedOptions[category];
+    const subData = categoryData[category]?.[subscription];
+    if (!subData) return sum;
 
-      const quantity = selectedQuantities[category] || 1;
-      return sum + parseFloat(subData[priceKey] || 0) * quantity;
-    }, 0);
-  };
+    let priceKey = "Single";
+    if (categoryCount === 2) priceKey = "Double";
+    else if (categoryCount >= 3) priceKey = "Triple";
+
+    const quantity = selectedQuantities[category] || 1;
+    return sum + parseFloat(subData[priceKey] || 0) * quantity;
+  }, 0);
+};
+
 
   useEffect(() => {
     setSelectedCompany("");

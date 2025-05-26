@@ -26,6 +26,27 @@ const AdminSentDetailPage = () => {
     }
   }, []);
 
+   const handleClick = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/resend_email",
+        {
+         mail_id: rowData // 👈 yahan apni actual ID set karein
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+             "csrf-token": csrf_token, // 👈 yahan apna CSRF token set karein
+          },
+        }
+      );
+
+      console.log('API Response:', response.data);
+    } catch (error) {
+      console.error('API Error:', error);
+    }
+  };
+
   const fetchDetailData = async (rowPayload) => {
  
     try {
@@ -113,7 +134,12 @@ const AdminSentDetailPage = () => {
             &times;
           </button>
         </h2>
-
+       <button
+      onClick={handleClick}
+      className="px-4 py-2 ml-70 bg-green-600 text-white rounded hover:bg-green-700"
+    >
+      Resend Mail
+    </button>
         <div className="space-y-3">
           {Object.entries(detailData)
             .filter(

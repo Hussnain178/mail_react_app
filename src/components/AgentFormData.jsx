@@ -144,26 +144,53 @@ const AgentForm = () => {
   
           <ServicesPlan
           resetTrigger={resetTrigger}
+  // onChange={(updatedProductDictArray) => {
+  //   const dict = {};
+  
+  //   updatedProductDictArray.forEach((item) => {
+  //     dict[item.type] = {
+  //       subscription: item.subscription,
+  //       free_addons: item.free_addons,
+  //       adds_on: item.adds_on,
+  //       price: item.price,
+  //     //       quantity, // ✅ added quantity
+  //     // sub_price: item.basePrice, // ✅ added subscription base price
+  //     // adds_on_price: item.paidAddonTotal, // ✅ added paid addons total
+  //     };
+  //   });
+  
+  //   const companyName = updatedProductDictArray[0]?.company_name || '';
+  
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     company_name: companyName,
+  //     product_dict: dict, // 👈 now an object with type-wise keys
+  //   }));
+  // }}
   onChange={(updatedProductDictArray) => {
-    const dict = {};
-  
-    updatedProductDictArray.forEach((item) => {
-      dict[item.type] = {
-        subscription: item.subscription,
-        free_addons: item.free_addons,
-        adds_on: item.adds_on,
-        price: item.price,
-      };
-    });
-  
-    const companyName = updatedProductDictArray[0]?.company_name || '';
-  
-    setFormData((prev) => ({
-      ...prev,
-      company_name: companyName,
-      product_dict: dict, // 👈 now an object with type-wise keys
-    }));
-  }}
+  const dict = {};
+
+  updatedProductDictArray.forEach((item) => {
+    dict[item.type] = {
+      subscription: item.subscription,
+      free_addons: item.free_addons,
+      adds_on: item.adds_on,
+      quantity: item.quantity,         // ✅ NEW
+      sub_price: item.sub_price,       // ✅ NEW
+      adds_on_price: item.adds_on_price, // ✅ NEW
+      price: item.price,
+    };
+  });
+
+  const companyName = updatedProductDictArray[0]?.company_name || '';
+
+  setFormData((prev) => ({
+    ...prev,
+    company_name: companyName,
+    product_dict: dict,
+  }));
+}}
+
   
 />
 
