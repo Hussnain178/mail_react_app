@@ -27,6 +27,26 @@ const UserAdminDetailPage = () => {
     }
   }, []);
 
+  const handleClick = async () => {
+    try {
+      const response = await axios.post(
+        "http://104.236.100.170/api/resend_email",
+        {
+         mail_id: rowData // 👈 yahan apni actual ID set karein
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+             "csrf-token": csrf_token, // 👈 yahan apna CSRF token set karein
+          },
+        }
+      );
+
+      console.log('API Response:', response.data);
+    } catch (error) {
+      console.error('API Error:', error);
+    }
+  };
 
 
   const fetchDetailData = async (rowPayload) => {
@@ -48,6 +68,9 @@ const UserAdminDetailPage = () => {
       setDetailData(response.data.List); // 👈 Only store the List object
       setDetailData1(response.data.List.admin_comments); 
       setproductdict(response.data.List.product_dict);  
+      // console.log("Detail Data:", response.data.List);
+      console.log("Product Dict:", response.data.List.product_dict);
+      // console.log("Admin Comments:", response.data.List.admin_comments);
 
     } catch (error) {
       console.error("Detail fetch error:", error);
@@ -96,6 +119,12 @@ const UserAdminDetailPage = () => {
             &times;
           </button>
       </h2>
+       <button
+      onClick={handleClick}
+      className="px-4 py-2 ml-70 bg-green-600 text-white rounded hover:bg-green-700"
+    >
+      Resend Mail
+    </button>
 
       <div className="space-y-3">
         {/* Dynamically show all key-value pairs from detailData */}
@@ -115,31 +144,40 @@ const UserAdminDetailPage = () => {
         <p className="text-gray-500">No data found for company: {selectedCompany}</p>
       ) : (
         <table className="min-w-full border border-gray-300 rounded-lg">
-        <thead className="bg-gray-100 text-gray-600 text-sm uppercase">
-          <tr>
-            <th className="py-2 px-4 border-b border-gray-300 text-left">Product</th>
-            <th className="py-2 px-4 border-b border-gray-300 text-left">Subscription</th>
-            <th className="py-2 px-4 border-b border-gray-300 text-left">Free Add-ons</th>
-            <th className="py-2 px-4 border-b border-gray-300 text-left">Add-ons</th>
-            <th className="py-2 px-4 border-b border-gray-300 text-left">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-        {Object.entries(productdict).map(([productName, productData]) => (
-            <tr key={productName} className="bg-white hover:bg-gray-50">
-              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productName}</td>
-              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productData.subscription}</td>
-              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
-                {productData.free_addons.length ? productData.free_addons.join(', ') : 'None'}
-              </td>
-              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
-                {productData.adds_on.length ? productData.adds_on.join(', ') : 'None'}
-              </td>
-              <td className="py-2 px-4 border-b border-gray-200 text-gray-700">${productData.price}</td>
-            </tr>
-          ))}
+       <thead className="bg-gray-100 text-gray-600 text-sm uppercase">
+  <tr>
+    <th className="py-2 px-4 border-b border-gray-300 text-left">Quantity</th>
+    <th className="py-2 px-4 border-b border-gray-300 text-left">Product</th>
+    <th className="py-2 px-4 border-b border-gray-300 text-left">Subscription</th>
+    <th className="py-2 px-4 border-b border-gray-300 text-left">Free Add-ons</th>
+    <th className="py-2 px-4 border-b border-gray-300 text-left">Add-ons</th>
+    <th className="py-2 px-4 border-b border-gray-300 text-left">Price</th>
+    
+  </tr>
+</thead>
 
-        </tbody>
+        <tbody>
+  {Object.entries(productdict).map(([productName, productData]) => (
+    <tr key={productName} className="bg-white hover:bg-gray-50">
+      <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productData.quantity}</td>
+      <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productName}</td>
+      <td className="py-2 px-4 border-b border-gray-200 text-gray-700">{productData.subscription}</td>
+      <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
+        {productData.free_addons.length
+          ? productData.free_addons.join(', ')
+          : 'None'}
+      </td>
+      <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
+        {productData.adds_on.length
+          ? productData.adds_on.map((addon) => addon.name).join(', ')
+          : 'None'}
+      </td>
+      <td className="py-2 px-4 border-b border-gray-200 text-gray-700">${productData.price}</td>
+      
+    </tr>
+  ))}
+</tbody>
+
       </table>
       
       )}
