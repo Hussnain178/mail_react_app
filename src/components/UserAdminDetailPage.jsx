@@ -107,7 +107,7 @@ const UserAdminDetailPage = () => {
 
 
   return (
-    <div className="bg-blue-50 min-h-screen">
+    <div className="bg-blue-50 min-h-screen ">
       <UserNavbar />
     <div className="p-6 m-10 max-w-3xl mx-auto bg-white shadow rounded">
       <h2 className=" relative text-2xl font-bold mb-4 text-center">Sent Info Detail 
@@ -118,13 +118,20 @@ const UserAdminDetailPage = () => {
           >
             &times;
           </button>
+          {/* <div className="">
+           <button
+    onClick={handleClick}
+    className="absolute right-1 mt-15 text-xl p-2 bg-green-600 text-white rounded hover:bg-green-700"
+  >
+    Resend Mail
+  </button>
+          </div> */}
       </h2>
-       <button
-      onClick={handleClick}
-      className="px-4 py-2 ml-70 bg-green-600 text-white rounded hover:bg-green-700"
-    >
-      Resend Mail
-    </button>
+
+    
+
+   
+
 
       <div className="space-y-3">
         {/* Dynamically show all key-value pairs from detailData */}
@@ -202,15 +209,23 @@ const UserAdminDetailPage = () => {
               </li>
             ))}
           </ul>
-    <div className="mt-6 text-center">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={() => navigate(-1)}
-        >
-          Back
-        </button>
-      </div>
+   
     </div>
+     <div className="mt-6 text-center">
+       <button
+    className="px-4 py-2 text-base bg-blue-500 text-white rounded hover:bg-blue-600"
+    onClick={() => navigate(-1)}
+  >
+    Back
+  </button>
+
+  <button
+    onClick={handleClick}
+    className="ml-5 px-4 py-2 text-base bg-green-600 text-white rounded hover:bg-green-700"
+  >
+    Resend Mail
+  </button>
+      </div>
     </div>
     </div>  
 
