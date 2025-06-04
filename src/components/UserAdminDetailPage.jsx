@@ -28,25 +28,31 @@ const UserAdminDetailPage = () => {
   }, []);
 
   const handleClick = async () => {
-    try {
-      const response = await axios.post(
-        "http://104.236.100.170/api/resend_email",
-        {
-         mail_id: rowData // 👈 yahan apni actual ID set karein
+  try {
+    const response = await axios.post(
+      "http://104.236.100.170/api/resend_email",
+      {
+        mail_id: rowData
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          "csrf-token": csrf_token,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-             "csrf-token": csrf_token, // 👈 yahan apna CSRF token set karein
-          },
-        }
-      );
+      }
+    );
 
-      console.log('API Response:', response.data);
-    } catch (error) {
-      console.error('API Error:', error);
+    console.log('API Response:', response.data);
+
+    if (response.status === 200) {
+      alert('✅ Mail successfully resent!');
     }
-  };
+  } catch (error) {
+    console.error('API Error:', error);
+    alert('❌ Failed to resend mail.');
+  }
+};
+
 
 
   const fetchDetailData = async (rowPayload) => {
