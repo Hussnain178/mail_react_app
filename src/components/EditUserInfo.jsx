@@ -70,7 +70,7 @@ const EditUserInfo = () => {
   };
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="  bg-blue-50 min-h-screen">
       {content}
       <div className="flex  items-center justify-center  bg-blue-50 px-4">
         <form
