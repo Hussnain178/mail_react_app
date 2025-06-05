@@ -14,7 +14,8 @@ const CreateUser = () => {
     agent_name: '',
     calling_name: '',
     user_password: '',
-    role: ''
+    role: '',
+    extension: '' // Added extension field for agent role
   });
 
   const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
@@ -57,7 +58,8 @@ const CreateUser = () => {
           agent_name: '',
           calling_name: '',
           user_password: '',
-          role: ''
+          role: '',
+          extension: ''
         });
   
       } else if (status === 400) {
@@ -185,40 +187,57 @@ const CreateUser = () => {
 
             {/* Role selection */}
             <div className="space-y-1">
-              <label className="text-[15px] font-bold block truncate">Role</label>
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center">
-                  <input
-                    required
-                    id="role-admin"
-                    type="radio"
-                    name="role"
-                    value="admin"
-                    checked={formData.role === "admin"}
-                    onChange={handleChange}
-                    className="border rounded-lg px-3 py-2 outline-none focus:ring-blue-500"
-                  />
-                  <label htmlFor="role-admin" className="block text-sm font-medium mb-1 pl-3">
-                    Admin
-                  </label>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    required
-                    id="role-user"
-                    type="radio"
-                    name="role"
-                    value="agent"
-                    checked={formData.role === "agent"}
-                    onChange={handleChange}
-                    className="border rounded-lg px-3 py-2 outline-none focus:ring-blue-500"
-                  />
-                  <label htmlFor="role-user" className="ml-2 text-sm font-medium text-black-700">
-                    Agent
-                  </label>
-                </div>
-              </div>
-            </div>
+  <label className="text-[15px] font-bold block truncate">Role</label>
+  <div className="flex items-center space-x-6">
+    <div className="flex items-center">
+      <input
+        required
+        id="role-admin"
+        type="radio"
+        name="role"
+        value="admin"
+        checked={formData.role === "admin"}
+        onChange={handleChange}
+        className="border rounded-lg px-3 py-2 outline-none focus:ring-blue-500"
+      />
+      <label htmlFor="role-admin" className="block text-sm font-medium mb-1 pl-3">
+        Admin
+      </label>
+    </div>
+    <div className="flex items-center">
+      <input
+        required
+        id="role-user"
+        type="radio"
+        name="role"
+        value="agent"
+        checked={formData.role === "agent"}
+        onChange={handleChange}
+        className="border rounded-lg px-3 py-2 outline-none focus:ring-blue-500"
+      />
+      <label htmlFor="role-user" className="ml-2 text-sm font-medium text-black-700">
+        Agent
+      </label>
+    </div>
+  </div>
+
+  {/* Conditional Input Field for Agent */}
+  {formData.role === "agent" && (
+    <div className="mt-4">
+      <label className="block text-sm font-medium mb-1">Extension</label>
+      <input
+       id="extension"
+        type="text"
+        name="extension"
+        value={formData.extension || ""}
+        onChange={handleChange}
+        className="w-full border rounded-lg px-3 py-2 outline-none focus:ring-blue-500"
+        placeholder="Enter Extension"
+      />
+    </div>
+  )}
+</div>
+
           </div>
 
           <button

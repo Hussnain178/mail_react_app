@@ -71,7 +71,7 @@ const AccountInfo = () => {
     );
   }
 
-  const { user_name, agent_name, calling_name , role } = userData.user_info;
+  const { user_name, agent_name, calling_name , role , extension} = userData.user_info;
 
   return (
     <div className="bg-blue-50 min-h-screen">
@@ -140,6 +140,21 @@ const AccountInfo = () => {
               className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
             />
           </div>
+           {Message === "agent" && (
+  <div className="mb-4">
+    <label className="block text-sm font-medium mb-1" htmlFor="extension">
+      Extension
+    </label>
+    <input
+      id="extension"
+      type="text"
+      
+      value={extension}
+     disabled
+ className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none bg-gray-100"
+            />
+  </div>
+)}
 
           <div className="flex justify-center mt-6">
             <button

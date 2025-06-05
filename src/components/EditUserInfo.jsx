@@ -24,6 +24,7 @@ const EditUserInfo = () => {
     
     new_agent_name: '',
     new_calling_name: '',
+    extension: '',
   });
 
   const handleChange = (e) => {
@@ -38,9 +39,10 @@ const EditUserInfo = () => {
       ...formData,
       new_agent_name: formData.new_agent_name.trim() === '' ? null : formData.new_agent_name,
       new_calling_name: formData.new_calling_name.trim() === '' ? null : formData.new_calling_name,
+      new_extension: formData.extension.trim() === '' ? null : formData.extension,
     };
 
-    console.log("Submitting this data:", payload); // optional for debugging
+    // console.log("Submitting this data:", payload); // optional for debugging
 
     try {
       const response = await fetch('http://104.236.100.170/api/update_information', {
@@ -130,6 +132,22 @@ const EditUserInfo = () => {
               className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          {Message === "agent" && (
+  <div className="mb-4">
+    <label className="block text-sm font-medium mb-1" htmlFor="agent_secret_code">
+      Extension
+    </label>
+    <input
+      id="extension"
+      type="text"
+      placeholder="Enter New Extension"
+      value={formData.extension || ""}
+      onChange={handleChange}
+      className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+)}
+
 
           {/* Save Button */}
           <div className="flex justify-center mt-6">

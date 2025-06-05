@@ -46,7 +46,11 @@ const UserAdminDetailPage = () => {
 
     if (response.status === 200) {
       alert('✅ Mail successfully resent!');
-    }
+    }else if (response.status === 400) {
+        alert(data.Message);
+      } else {
+        setMessage({ type: 'error', text: result.message || "Something went wrong." });
+      }
   } catch (error) {
     console.error('API Error:', error);
     alert('❌ Failed to resend mail.');
