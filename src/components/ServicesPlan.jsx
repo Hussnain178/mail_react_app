@@ -290,6 +290,26 @@ const getSubscriptionCharge = () => {
               </label>
               <div className="flex items-center gap-2">
                 <select
+  className="w-full truncate border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400"
+  value={selectedOptions[category] || ""}
+  onChange={(e) =>
+    handleSubscriptionChange(category, e.target.value)
+  }
+>
+  <option value="">-- Select Subscription --</option>
+  {subs.map(({ subscriptionName, label }) => (
+    <option
+      key={subscriptionName}
+      value={subscriptionName}
+      title={label} // Show full label on hover
+      className="truncate"
+    >
+      {label}
+    </option>
+  ))}
+</select>
+
+                {/* <select
                   className="flex-1 border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400"
                   value={selectedOptions[category] || ""}
                   onChange={(e) =>
@@ -302,7 +322,7 @@ const getSubscriptionCharge = () => {
                       {label}
                     </option>
                   ))}
-                </select>
+                </select> */}
                 {selectedOptions[category] && (
                   <input
                     type="number"
