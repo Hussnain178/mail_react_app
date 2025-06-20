@@ -575,12 +575,25 @@ export default function CompanyDataform() {
               className="border p-2 rounded w-full sm:w-1/3"
             />
             <input
+  type="text"
+  placeholder="Enter Adds On Price"
+  value={AddsonPrice}
+  onChange={(e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setAddsonPrice(value);
+    }
+  }}
+  className="border p-2 rounded w-full sm:w-1/3"
+/>
+
+            {/* <input
               type="text"
               placeholder="Enter Adds On Price"
               value={AddsonPrice}
               onChange={(e) => setAddsonPrice(e.target.value)}
               className="border p-2 rounded w-full sm:w-1/3"
-            />
+            /> */}
 
             <button
               onClick={handleAddAddson}

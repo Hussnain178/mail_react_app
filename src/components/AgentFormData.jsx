@@ -474,17 +474,26 @@ const AgentForm = () => {
             {/* Current LEC */}
             <div>
               <label className="block text-sm font-medium mt-3 pb-1" htmlFor="option1">Current LEC</label>
-              <select
-                className={inputStyles}
-                id="current_lec"
+               <input
+                required
+                className={shortInputStyles}
+                type="text"
+                 id="current_lec"
                 name="current_lec"
+                value={formData.current_lec}
+                onChange={handleChange}
+                placeholder="Enter your current LEC"
+              />
+              {/* <select
+                className={inputStyles}
+               
                 value={formData.option1}
                 onChange={handleChange}
               >
                 <option value="">-- Select LEC --</option>
                 <option value="lec_1">LEC 1</option>
                 <option value="lec_2">LEC 2</option>
-              </select>
+              </select> */}
             </div>
 
 
