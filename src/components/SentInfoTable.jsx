@@ -4,12 +4,17 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const SentInfoTable = () => {
+  // 🔐 Role-based visibility
+  const userType = localStorage.getItem("Message"); // You confirmed this key
+  const isAdmin = userType === "admin";
+
+  // 🔹 Table Data & State
   const [sentInfo, setSentInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMoreData, setHasMoreData] = useState(true);
 
-  // 🔹 Load from localStorage to persist across visits/back navigation
+  // 🔹 Date Filters with localStorage persistence
   const [startDate, setStartDate] = useState(() => {
     return localStorage.getItem("sentInfoFilter_startDate") || "";
   });
@@ -17,10 +22,11 @@ const SentInfoTable = () => {
     return localStorage.getItem("sentInfoFilter_endDate") || "";
   });
 
+  // 🔹 CSRF Token
   const csrf_token = localStorage.getItem("csrf_token");
   const navigate = useNavigate();
 
-  // 🔁 Save to localStorage when dates change
+  // 🔁 Save filter dates to localStorage when changed
   useEffect(() => {
     if (startDate) {
       localStorage.setItem("sentInfoFilter_startDate", startDate);
@@ -37,7 +43,7 @@ const SentInfoTable = () => {
     }
   }, [endDate]);
 
-  // Fetch data based on page and filters
+  // 🔁 Fetch data on page or filter change
   const fetchSentInfo = async (page, start = null, end = null) => {
     setLoading(true);
     try {
@@ -58,21 +64,20 @@ const SentInfoTable = () => {
 
       const data = response.data.List || [];
       setSentInfo(data);
-      setHasMoreData(data.length === 20); // assuming page size is 20
+      setHasMoreData(data.length === 20); // assuming 20 per page
     } catch (error) {
       console.error("Error fetching sent info:", error);
     }
     setLoading(false);
   };
 
-  // Refetch whenever page or filters change
   useEffect(() => {
     const sDate = startDate ? startDate : null;
     const eDate = endDate ? endDate : null;
     fetchSentInfo(pageNumber, sDate, eDate);
   }, [pageNumber, startDate, endDate]);
 
-  // 📥 Download CSV Files for Proposal & Confirmation
+  // 📥 Handle CSV Download
   const handleDownload = async () => {
     if (!startDate && !endDate) {
       alert("Please select at least one date to download.");
@@ -100,13 +105,12 @@ const SentInfoTable = () => {
       // Helper: Convert array to CSV
       const convertToCSV = (data, headers) => {
         const headerRow = headers.join(",");
-        const rows = data.map(item =>
-          headers.map(h => `"${item[h] || ""}"`).join(",")
+        const rows = data.map((item) =>
+          headers.map((h) => `"${item[h] || ""}"`).join(",")
         );
         return [headerRow, ...rows].join("\n");
       };
 
-      // Columns to export
       const columns = [
         "sender_mail",
         "agent_user_name",
@@ -150,7 +154,7 @@ const SentInfoTable = () => {
     URL.revokeObjectURL(url);
   };
 
-  // Pagination handlers
+  // Pagination Handlers
   const handleNextPage = () => {
     if (hasMoreData) {
       setPageNumber((prev) => prev + 1);
@@ -168,59 +172,61 @@ const SentInfoTable = () => {
       <div className="p-6 w-full bg-white">
         <h2 className="text-2xl font-bold mb-4">Sent Info Table</h2>
 
-        {/* 🔽 Filters & Buttons */}
-        <div className="mb-6 flex flex-wrap items-end gap-4">
-          {/* Start Date */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Start Date</label>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => {
-                setStartDate(e.target.value);
+        {/* 🔽 ADMIN ONLY: Filters & Download Button */}
+        {isAdmin && (
+          <div className="mb-6 flex flex-wrap items-end gap-4">
+            {/* Start Date */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Start Date</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                  setPageNumber(1);
+                }}
+                className="mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            {/* End Date */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">End Date</label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                  setPageNumber(1);
+                }}
+                className="mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            {/* Clear Button */}
+            <button
+              onClick={() => {
+                setStartDate("");
+                setEndDate("");
                 setPageNumber(1);
               }}
-              className="mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            />
+              className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+              Clear
+            </button>
+
+            {/* Download Button */}
+            <button
+              onClick={handleDownload}
+              disabled={loading}
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400"
+            >
+              {loading ? "Downloading..." : "Download CSV"}
+            </button>
           </div>
+        )}
 
-          {/* End Date */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">End Date</label>
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => {
-                setEndDate(e.target.value);
-                setPageNumber(1);
-              }}
-              className="mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          {/* Clear Button */}
-          <button
-            onClick={() => {
-              setStartDate("");
-              setEndDate("");
-              setPageNumber(1);
-            }}
-            className="px-3 mb-1 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Clear
-          </button>
-
-          {/* Download Button */}
-          <button
-            onClick={handleDownload}
-            disabled={loading}
-            className="ml-140 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400"
-          >
-            {loading ? "Downloading..." : "Download CSV"}
-          </button>
-        </div>
-
-        {/* 🔽 Table */}
+        {/* 🔽 Table (Visible to All) */}
         {loading ? (
           <div className="flex justify-center py-4 text-lg">Loading...</div>
         ) : (
@@ -269,7 +275,7 @@ const SentInfoTable = () => {
           </div>
         )}
 
-        {/* 🔽 Pagination */}
+        {/* 🔽 Pagination (Visible to All) */}
         <div className="flex justify-between mt-6">
           <button
             onClick={handlePrevPage}
