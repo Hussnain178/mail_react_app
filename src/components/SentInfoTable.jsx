@@ -120,17 +120,37 @@ const SentInfoTable = () => {
         "m_sent_at",
       ];
 
-      // Download proposal.csv
-      if (Data.proposal && Data.proposal.length > 0) {
-        const csv = convertToCSV(Data.proposal, columns);
-        downloadFile(csv, "proposal.csv", "text/csv");
-      }
+      // // Download proposal.csv
+      // if (Data.proposal && Data.proposal.length > 0) {
+      //   const csv = convertToCSV(Data.proposal, columns);
+      //   downloadFile(csv, "proposal.csv", "text/csv");
+      // }
 
-      // Download confirmation.csv
-      if (Data.confirmation && Data.confirmation.length > 0) {
-        const csv = convertToCSV(Data.confirmation, columns);
-        downloadFile(csv, "confirmation.csv", "text/csv");
-      }
+      // // Download confirmation.csv
+      // if (Data.confirmation && Data.confirmation.length > 0) {
+      //   const csv = convertToCSV(Data.confirmation, columns);
+      //   downloadFile(csv, "confirmation.csv", "text/csv");
+      // }
+      // Generate date range string
+const dateRange = startDate && endDate
+  ? `from ${startDate} to ${endDate}`
+  : startDate
+    ? `from ${startDate}`
+    : endDate
+      ? `to ${endDate}`
+      : "all";
+
+// Download proposal.csv
+if (Data.proposal && Data.proposal.length > 0) {
+  const csv = convertToCSV(Data.proposal, columns);
+  downloadFile(csv, `${dateRange} proposal.csv`, "text/csv");
+}
+
+// Download confirmation.csv
+if (Data.confirmation && Data.confirmation.length > 0) {
+  const csv = convertToCSV(Data.confirmation, columns);
+  downloadFile(csv, `${dateRange} confirmation.csv`, "text/csv");
+}
 
       alert("Files downloaded successfully!");
     } catch (error) {

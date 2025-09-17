@@ -23,6 +23,9 @@ const LogoutButton = () => {
       // ✅ Clear tokens and redirect
       localStorage.removeItem('csrf_token');
       localStorage.removeItem('user_name');
+      localStorage.removeItem('sentInfoFilter_startDate');
+      localStorage.removeItem('sentInfoFilter_endDate');
+
       navigate('/login');
 
     } catch (error) {

@@ -32,7 +32,7 @@ const UserAdminDetailPage = () => {
     const response = await axios.post(
       "http://104.236.100.170/api/resend_email",
       {
-        mail_id: rowData
+        mail_id: rowData._id,
       },
       {
         headers: {
