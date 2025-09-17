@@ -20,7 +20,7 @@ const UserAdminDetailPage = () => {
 
   useEffect(() => {
     if (rowData) {
-      const payload = { id: rowData }; // id ko key:value bana kar bhejna
+      const payload = { id: rowData._id }; // id ko key:value bana kar bhejna
       fetchDetailData(payload);
     } else {
       setLoading(false);

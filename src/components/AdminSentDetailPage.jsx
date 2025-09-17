@@ -19,33 +19,13 @@ const AdminSentDetailPage = () => {
 
   useEffect(() => {
     if (rowData) {
-      const payload = { id: rowData };
+      const payload = { id: rowData._id };
       fetchDetailData(payload);
     } else {
       setLoading(false);
     }
   }, []);
 
-  //  const handleClick = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "http://104.236.100.170/api/resend_email",
-  //       {
-  //        mail_id: rowData // 👈 yahan apni actual ID set karein
-  //       },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //            "csrf-token": csrf_token, // 👈 yahan apna CSRF token set karein
-  //         },
-  //       }
-  //     );
-
-  //     console.log('API Response:', response.data);
-  //   } catch (error) {
-  //     console.error('API Error:', error);
-  //   }
-  // };
 
   const fetchDetailData = async (rowPayload) => {
  
@@ -86,12 +66,12 @@ const AdminSentDetailPage = () => {
           "Content-Type": "application/json",
           "csrf-token": csrf_token,
         },
-        body: JSON.stringify({ comment: newComment, id: rowData }),
+        body: JSON.stringify({ comment: newComment, id: rowData._id }),
       });
 
       if (response.ok) {
         setNewComment("");
-        fetchDetailData({ id: rowData });
+        fetchDetailData({ id: rowData._id });
       }
     } catch (error) {
       console.error("Failed to add comment:", error);
