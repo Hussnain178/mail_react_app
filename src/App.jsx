@@ -19,6 +19,7 @@ import SentDetailPage from './components/SentDetailPage';
 import AgentFormData from './components/AgentFormData';
 import SuperAdminPassword from './components/SuperAdminPassword';
 import ShowUserTable from './components/ShowUserTable';
+import Smtp2go from './components/Smtp2go';
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
         <Route path="/change-password" element={<PrivateRoute allowedRoles={["admin","agent"]}><ChangePasssword /></PrivateRoute>} />
         {/* <Route path="/userchange-password" element={<PrivateRoute allowedRoles={["agent"]}><UserChangepasssword /></PrivateRoute>} /> */}
         <Route path='/Account-Info' element={<PrivateRoute allowedRoles={["admin","agent"]}><AccountInfo /></PrivateRoute>} />
+        <Route path='/Smtp2go' element={<PrivateRoute allowedRoles={["admin","agent"]}><Smtp2go /></PrivateRoute>} />
+
         {/* <Route path='/userAccount-Info' element={<PrivateRoute allowedRoles={["agent"]}><UserAccountinfo /></PrivateRoute>} /> */}
         <Route path='/edit-user' element={<PrivateRoute allowedRoles={["admin","agent"]}><EditUserInfo /></PrivateRoute>} />
         {/* <Route path='/useredit-user' element={<PrivateRoute allowedRoles={["agent"]}><UserEditUserinfo /></PrivateRoute>} /> */}

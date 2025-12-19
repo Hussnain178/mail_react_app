@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { User } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Assuming you're using React Router
+import React, { useState } from "react";
+import { User } from "lucide-react";
+import { Link } from "react-router-dom"; // Assuming you're using React Router
 
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,73 +11,90 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../components/ui/dropdown-menu';
-import LogoutButton from './logoutButton';
+} from "../components/ui/dropdown-menu";
+import LogoutButton from "./logoutButton";
 
 export default function Navbar() {
   // const [isOpen, setIsOpen] = useState(false);
   const userName = localStorage.getItem("user_name");
-// console.log("Navbar username:", userName); // ✅ Debug here too
-
-
+  // console.log("Navbar username:", userName); // ✅ Debug here too
 
   return (
     <nav className="border-b bg-black">
-      <div className="mx-auto flex flex-nowrap h-16 max-w-7xl sticky-top items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex flex-nowrap h-16 w-full sticky-top items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand name */}
         <div className="flex items-center">
           <Link to="/home">
-         <h1 className="text-white text-xl font-bold">Admin Panel</h1>
+            <h1 className="text-white text-xl font-bold whitespace-nowrap">Admin Panel</h1>
           </Link>
         </div>
-        <div className="flex items-center">
-          <ul className="flex space-x-6">
+        <div className="flex items-center px-[12px]">
+          <ul className="flex space-x-6 text-center items-center">
             <li>
-              <Link to="/show-company" className="text-white hover:text-gray-300">
+              <Link
+                to="/show-company"
+                className="text-white hover:text-gray-300"
+              >
                 Show Company
               </Link>
             </li>
             <li>
-              <Link to="/add-package" className="text-white hover:text-gray-300">
+              <Link
+                to="/add-package"
+                className="text-white hover:text-gray-300"
+              >
                 Add/Update Packages
               </Link>
             </li>
             <li>
-              <Link to="/delete-package" className="text-white hover:text-gray-300">
+              <Link
+                to="/delete-package"
+                className="text-white hover:text-gray-300"
+              >
                 Delete Package
               </Link>
             </li>
             <li>
-              <Link to="/staff-directory" className="text-white hover:text-gray-300">
+              <Link
+                to="/staff-directory"
+                className="text-white hover:text-gray-300"
+              >
                 Staff Directory
               </Link>
             </li>
             <li>
-              <Link to="/staff-changepassword" className="text-white hover:text-gray-300">
-              Change Staff Password
+              <Link
+                to="/staff-changepassword"
+                className="text-white hover:text-gray-300"
+              >
+                Change Staff Password
               </Link>
             </li>
-           
-            </ul>
-          </div>
-
-        
+            <li>
+              <Link
+                to="/Smtp2go"
+                className="text-white hover:text-gray-300"
+              >
+                Smtp2go Api
+              </Link>
+            </li>
+          </ul>
+        </div>
 
         {/* Buttons + Dropdown */}
         <div className="flex items-center space-x-4">
           {/* Button 1 */}
           <Link to="/create-user">
-         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"> 
-               Create User
-          </button>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">
+              Create User
+            </button>
           </Link>
-
 
           {/* Button 2 */}
           <Link to="/delete-user">
-          <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
-            Delete User
-          </button>
+            <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition whitespace-nowrap">
+              Delete User
+            </button>
           </Link>
 
           {/* Profile dropdown */}
@@ -100,16 +117,18 @@ export default function Navbar() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-              <Link to="/Account-Info">
-                <DropdownMenuItem>Account Info</DropdownMenuItem>
+                <Link to="/Account-Info">
+                  <DropdownMenuItem>Account Info</DropdownMenuItem>
                 </Link>
-                 <Link to="/change-password">
-                 <DropdownMenuItem>Change Password</DropdownMenuItem>
-                 </Link>
+                <Link to="/change-password">
+                  <DropdownMenuItem>Change Password</DropdownMenuItem>
+                </Link>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               {/* <Link to="/logout"> */}
-              <DropdownMenuItem><LogoutButton/></DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogoutButton />
+              </DropdownMenuItem>
               {/* </Link> */}
             </DropdownMenuContent>
           </DropdownMenu>
