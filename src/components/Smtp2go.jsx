@@ -119,13 +119,6 @@ const Smtp2go = () => {
 
       <div className="flex items-center justify-center px-4">
         <div className="bg-white relative p-6 rounded-2xl shadow-xl w-full max-w-2xl mx-auto mt-20">
-          <button
-            type="button"
-            className="absolute right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
-            onClick={() => navigate("/home")}
-          >
-            &times;
-          </button>
 
           <h1 className="text-center text-black text-[25px] font-bold pb-10">
             Smtp2go
