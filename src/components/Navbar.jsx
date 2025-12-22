@@ -25,7 +25,9 @@ export default function Navbar() {
         {/* Brand name */}
         <div className="flex items-center">
           <Link to="/home">
-            <h1 className="text-white text-xl font-bold whitespace-nowrap">Admin Panel</h1>
+            <h1 className="text-white text-xl font-bold whitespace-nowrap">
+              Admin Panel
+            </h1>
           </Link>
         </div>
         <div className="flex items-center px-[12px]">
@@ -62,19 +64,18 @@ export default function Navbar() {
                 Staff Directory
               </Link>
             </li>
+            {userName === "SuperAdmin" && (
+              <li>
+                <Link
+                  to="/staff-changepassword"
+                  className="text-white hover:text-gray-300"
+                >
+                  Change Staff Password
+                </Link>
+              </li>
+            )}
             <li>
-              <Link
-                to="/staff-changepassword"
-                className="text-white hover:text-gray-300"
-              >
-                Change Staff Password
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/Smtp2go"
-                className="text-white hover:text-gray-300"
-              >
+              <Link to="/Smtp2go" className="text-white hover:text-gray-300">
                 Smtp2go Api
               </Link>
             </li>
