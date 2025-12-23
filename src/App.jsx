@@ -35,7 +35,7 @@ function App() {
         <Route path="/show-company" element={<PrivateRoute allowedRoles={["admin", "agent"]}><CompanyTable /></PrivateRoute>} />
         <Route path="/delete-user" element={<PrivateRoute allowedRoles={["admin"]}><DeleteUser /></PrivateRoute>} />
         <Route path="/AgentForm" element={<PrivateRoute allowedRoles={["agent"]}><AgentFormData /></PrivateRoute>} />
-        <Route path="/change-password" element={<PrivateRoute allowedRoles={["admin","agent"]}><ChangePasssword /></PrivateRoute>} />
+        <Route path="/change-password" element={<PrivateRoute allowedRoles={["admin"]}><ChangePasssword /></PrivateRoute>} />
         {/* <Route path="/userchange-password" element={<PrivateRoute allowedRoles={["agent"]}><UserChangepasssword /></PrivateRoute>} /> */}
         <Route path='/Account-Info' element={<PrivateRoute allowedRoles={["admin","agent"]}><AccountInfo /></PrivateRoute>} />
         <Route path='/Smtp2go' element={<PrivateRoute allowedRoles={["admin","agent"]}><Smtp2go /></PrivateRoute>} />
