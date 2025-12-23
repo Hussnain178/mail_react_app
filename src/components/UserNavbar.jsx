@@ -72,9 +72,6 @@ export default function Navbar() {
               <Link to="/Account-Info">
                 <DropdownMenuItem>Account Info</DropdownMenuItem>
                 </Link>
-                 <Link to="/change-password">
-                 <DropdownMenuItem>Change Password</DropdownMenuItem>
-                 </Link>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               

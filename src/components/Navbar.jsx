@@ -64,7 +64,6 @@ export default function Navbar() {
                 Staff Directory
               </Link>
             </li>
-            {userName === "SuperAdmin" && (
               <li>
                 <Link
                   to="/staff-changepassword"
@@ -73,7 +72,6 @@ export default function Navbar() {
                   Change Staff Password
                 </Link>
               </li>
-            )}
             <li>
               <Link to="/Smtp2go" className="text-white hover:text-gray-300">
                 Smtp2go Api
